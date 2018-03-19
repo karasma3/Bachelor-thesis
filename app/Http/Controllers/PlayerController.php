@@ -12,9 +12,8 @@ class PlayerController extends Controller
 
         return view('players.index', compact('players'));
     }
-    public function show($id){
-        $players = Group::all();
+    public function show(Player $player){
 
-        return view('players.show', compact('players'));
+        return view('players.show', compact('player'));
     }
 }

@@ -2,19 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tournament;
 use Illuminate\Http\Request;
-use App\Models\Player;
 
 class TournamentController extends Controller
 {
     public function index(){
-        $players = Player::all();
+        $tournaments = Tournament::all();
 
-        return view('players.index', compact('players'));
+        return view('tournaments.index', compact('tournaments'));
     }
-    public function show($id){
-        $players = Player::find($id);
+    public function show(Tournament $tournament){
 
-        return view('players.show', compact('players'));
+        return view('tournaments.show', compact('tournament'));
     }
 }

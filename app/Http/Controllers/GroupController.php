@@ -12,9 +12,8 @@ class GroupController extends Controller
 
         return view('groups.index', compact('groups'));
     }
-    public function show($id){
-        $groups = Group::all();
+    public function show(Group $group){
 
-        return view('groups.show', compact('groups'));
+        return view('groups.show', compact('group'));
     }
 }

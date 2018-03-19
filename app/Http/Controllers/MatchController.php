@@ -12,9 +12,8 @@ class MatchController extends Controller
 
         return view('matches.index', compact('matches'));
     }
-    public function show($id){
-        $matches = Match::all();
+    public function show(Match $match){
 
-        return view('matches.show', compact('matches'));
+        return view('matches.show', compact('match'));
     }
 }
