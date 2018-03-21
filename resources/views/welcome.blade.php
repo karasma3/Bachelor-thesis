@@ -1,11 +1,7 @@
-<!doctype html>
-<html>
-    <head>
-        <title>Groups</title>
+@extends('layouts.master')
 
-
-    </head>
-    <body>
-       <h1>Hello world!</h1>
-    </body>
-</html>
+@section('content')
+    <div class="container">
+        <h1>Strahovská liga ve stolním tenise</h1>
+    </div>
+@endsection

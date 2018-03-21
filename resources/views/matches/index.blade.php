@@ -3,8 +3,8 @@
 @section('content')
     <div class="container">
         <ul>
-            @foreach($groups as $group)
-                <li>{{ $group }}</li>
+            @foreach($matches as $match)
+                <li>{{ $match }}</li>
             @endforeach
         </ul>
     </div>

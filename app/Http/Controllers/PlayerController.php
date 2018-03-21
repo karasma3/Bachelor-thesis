@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use app\Models\Player;
+use App\Models\Player;
 
 class PlayerController extends Controller
 {

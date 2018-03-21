@@ -1,7 +1,9 @@
-@extends('layouts.layout')
+@extends('layouts.master')
 
 @section('content')
-    <ul>
-        {{ $group -> id }}
-    </ul>
+    <div class="container">
+        <ul>
+            {{ $group -> id }}
+        </ul>
+    </div>
 @endsection

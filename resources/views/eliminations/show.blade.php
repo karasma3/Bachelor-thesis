@@ -3,9 +3,7 @@
 @section('content')
     <div class="container">
         <ul>
-            @foreach($groups as $group)
-                <li>{{ $group }}</li>
-            @endforeach
+            {{ $elimination -> id }}
         </ul>
     </div>
 @endsection
