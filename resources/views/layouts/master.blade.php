@@ -39,10 +39,6 @@
 
             @yield('content')
 
-            <nav class="blog-pagination">
-                <a class="btn btn-outline-secondary disabled" href="#">Newer</a>
-                <a class="btn btn-outline-primary" href="#">Older</a>
-            </nav>
 
         </div><!-- /.blog-main -->
 

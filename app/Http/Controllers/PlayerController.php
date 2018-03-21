@@ -16,4 +16,9 @@ class PlayerController extends Controller
 
         return view('players.show', compact('player'));
     }
+
+    public function edit(Player $player){
+
+        return view('players.edit', compact('player'));
+    }
 }
