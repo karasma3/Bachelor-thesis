@@ -15,6 +15,10 @@ class CreateEliminationsTable extends Migration
     {
         Schema::create('eliminations', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('tournament_id');
+            $table->integer('team_id');
+            $table->integer('match_id');
+            $table->string('elimination_name');
             $table->timestamps();
         });
     }
