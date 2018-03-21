@@ -18,20 +18,14 @@
 </head>
 
 <body>
-    <header>
-        @include('layouts.nav')
-    </header>
+    @include('layouts.nav')
 
     <!-- Begin page content -->
     <main role="main" class="container">
         @yield('content')
     </main>
 
-    <footer class="footer">
-        <div class="container">
-            <span class="text-muted">Silicon Hill</span>
-        </div>
-    </footer>
+    @include('layouts.footer')
 
 
 </body>
