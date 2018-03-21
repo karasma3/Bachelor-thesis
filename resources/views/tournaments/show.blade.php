@@ -2,6 +2,8 @@
 
 @section('content')
     <div class="container">
-        <h1>Strahovská liga ve stolním tenise</h1>
+        <ul>
+            {{ $tournament -> id }}
+        </ul>
     </div>
 @endsection
