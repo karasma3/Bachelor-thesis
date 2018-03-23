@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Player;
 use Illuminate\Http\Request;
 use App\Models\Team;
 
 class TeamController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('guest', ['only' => 'index', 'show']);
+    }
     public function index(){
         $teams = Team::all();
 
@@ -18,7 +23,7 @@ class TeamController extends Controller
     }
     public function create(){
 
-        return view('teams.create', compact('team'));
+        return view('teams.create');
     }
     public function edit(Team $team){
 
@@ -26,8 +31,16 @@ class TeamController extends Controller
     }
     public function store(){
 
-//        dd(request()->all());
+        $this->validate(request(),[
+            'team_name' => 'required|unique:teams|min:3|max:20|string'
+        ]);
+        $team =Team::create( [
+            'team_name' => request('team_name')
+        ]);
 
-        $team = new Team;
+        $player = Player::find(auth()->user()->id);
+        $team->players()->attach($player->id);
+
+        return redirect('/');
     }
 }

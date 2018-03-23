@@ -16,4 +16,7 @@ class EliminationController extends Controller
 
         return view('eliminations.show', compact('elimination'));
     }
+    public function store(){
+
+    }
 }

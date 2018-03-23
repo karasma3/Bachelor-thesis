@@ -13,7 +13,7 @@
 
 Route::get('/', function () {
     return view('welcome');
-});
+}) -> name('home');
 
 Route::get('/tournaments', 'TournamentController@index');
 Route::get('/tournaments/{tournament}', 'TournamentController@show');
@@ -37,3 +37,9 @@ Route::get('/teams/{team}/edit', 'TeamController@edit');
 Route::get('/players', 'PlayerController@index');
 Route::get('/players/{player}', 'PlayerController@show');
 Route::get('/players/{player}/edit', 'PlayerController@edit');
+
+Route::get('/register', 'AuthController@register');
+Route::post('/register', 'AuthController@storeRegister');
+Route::get('/login', 'AuthController@login');
+Route::post('/login', 'AuthController@storeLogin');
+Route::get('/logout', 'AuthController@logout');

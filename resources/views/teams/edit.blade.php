@@ -2,7 +2,8 @@
 
 @section('content')
     <h1>Edit {{$team}}</h1>
-    <form method="PATCH" action="/players/player">
+    <form method="POST" action="/players/{{Auth::user()->id}}">
+        {{method_field('PATCH')}}
         <div class="form-group">
             <label for="name">Name</label>
             <input type="text" class="form-control" id="name" name="name">

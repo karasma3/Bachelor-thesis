@@ -16,4 +16,11 @@ class MatchController extends Controller
 
         return view('matches.show', compact('match'));
     }
+    public function edit(Match $match){
+
+        return view('matches.edit', compact('match'));
+    }
+    public function store(){
+
+    }
 }

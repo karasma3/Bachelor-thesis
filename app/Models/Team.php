@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 
 class Team extends Model
 {
@@ -11,5 +10,11 @@ class Team extends Model
     }
     public function players(){
         return $this->belongsToMany(Player::class);
+    }
+    public function group(){
+        return $this->belongsTo(Group::class);
+    }
+    public function elimination(){
+        return $this->belongsTo(Elimination::class);
     }
 }

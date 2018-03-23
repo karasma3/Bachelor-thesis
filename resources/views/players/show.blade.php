@@ -2,8 +2,14 @@
 
 @section('content')
     <div class="container">
+
+            {{ $player -> name }}
+            {{ $player -> surname }}
+            {{ $player -> email }}
         <ul>
-            {{ $player -> id }}
+            @foreach( $player -> teams as $team )
+                <li> {{ $team -> team_name }}</li>
+            @endforeach
         </ul>
     </div>
 @endsection
