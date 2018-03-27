@@ -41,6 +41,7 @@ class TeamController extends Controller
         $player = Player::find(auth()->user()->id);
         $team->players()->attach($player->id);
 
+        session()->flash('message','Your TEAM was created!');
         return redirect('/');
     }
 }

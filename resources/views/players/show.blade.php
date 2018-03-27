@@ -2,13 +2,16 @@
 
 @section('content')
     <div class="container">
-
-            {{ $player -> name }}
-            {{ $player -> surname }}
-            {{ $player -> email }}
+        <h1>Player</h1>
+        <ul>
+            <li>Meno: {{ $player -> name }}</li>
+            <li>Prijmeni: {{ $player -> surname }}</li>
+            <li>e-mail: {{ $player -> email }}</li>
+        </ul>
+        <h2>Teams</h2>
         <ul>
             @foreach( $player -> teams as $team )
-                <li> {{ $team -> team_name }}</li>
+                <li> <a href="/teams/{{ $team->id }}">{{ $team -> team_name }}</a></li>
             @endforeach
         </ul>
     </div>

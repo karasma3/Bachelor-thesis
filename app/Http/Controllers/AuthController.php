@@ -48,6 +48,7 @@ class AuthController extends Controller
         ]);
         //sign in
         auth()->login($player);
+        session()->flash('message','You have been registered!');
         //redirect to home page
         return redirect()->home();
     }

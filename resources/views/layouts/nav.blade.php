@@ -6,7 +6,7 @@
             <a class="nav-link" href="#">About</a>
             @if(Auth::check())
                 <a class="nav-link" href="/teams/create">Create a team</a>
-                <a class="nav-link ml-auto" href="/players/{{Auth::user()->id}}}">{{Auth::user()->name}} {{Auth::user()->surname}}</a>
+                <a class="nav-link ml-auto" href="/players/{{Auth::id()}}">{{Auth::user()->name}} {{Auth::user()->surname}}</a>
                 <a class="nav-link ml-auto" href="/logout">Logout</a>
             @else
                 <a class="nav-link" href="/register">Register</a>

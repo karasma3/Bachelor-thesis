@@ -17,7 +17,7 @@ class CreateTeamsTable extends Migration
             $table->increments('id');
             $table->integer('group_id')->nullable();
             $table->integer('elimination_id')->nullable();
-            $table->string('team_name');
+            $table->string('team_name')->unique();
             $table->timestamps();
         });
     }
