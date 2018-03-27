@@ -33,6 +33,8 @@ Route::get('/teams/create', 'TeamController@create');
 Route::post('/teams', 'TeamController@store');
 Route::get('/teams/{team}', 'TeamController@show');
 Route::get('/teams/{team}/edit', 'TeamController@edit');
+Route::post('/teams/{team}/change_team_name', 'TeamController@changeTeamName');
+Route::post('/teams/{team}/add_player', 'TeamController@addPlayer');
 
 Route::get('/players', 'PlayerController@index');
 Route::get('/players/{player}', 'PlayerController@show');

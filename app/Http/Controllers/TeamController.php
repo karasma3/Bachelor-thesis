@@ -38,10 +38,26 @@ class TeamController extends Controller
             'team_name' => request('team_name')
         ]);
 
-        $player = Player::find(auth()->user()->id);
+        $player = Player::find(request()->user()->id);
         $team->players()->attach($player->id);
 
         session()->flash('message','Your TEAM was created!');
+        return redirect('/');
+    }
+    public function addPlayer(Team $team){
+
+        return redirect('/');
+//        $player = Player::find(request('mail'));
+//        $team->players()->attach($player->id);
+//        return redirect('/teams/'.$team->id);
+    }
+    public function changeTeamName(Team $team){
+        $this->validate(request(),[
+            'team_name' => 'required|unique:teams|min:3|max:20|string'
+        ]);
+        $team->team_name = request('team_name');
+        $team->save();
+        session()->flash('message','Your team name was changed!');
         return redirect('/');
     }
 }
