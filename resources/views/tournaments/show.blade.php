@@ -2,8 +2,6 @@
 
 @section('content')
     <div class="container">
-        <ul>
-            {{ $tournament -> id }}
-        </ul>
+        <h1>{{ $tournament -> tournament_name }}</h1>
     </div>
 @endsection

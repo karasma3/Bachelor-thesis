@@ -2,10 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Player extends Model
+class Player extends Authenticatable
 {
+    use Notifiable;
+    protected $guarded = [];
+
     public function teams(){
         return $this->belongsToMany(Team::class);
     }

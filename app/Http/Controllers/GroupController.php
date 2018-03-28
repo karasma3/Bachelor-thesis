@@ -16,4 +16,7 @@ class GroupController extends Controller
 
         return view('groups.show', compact('group'));
     }
+    public function store(){
+
+    }
 }

@@ -16,4 +16,7 @@ class TournamentController extends Controller
 
         return view('tournaments.show', compact('tournament'));
     }
+    public function store(){
+
+    }
 }

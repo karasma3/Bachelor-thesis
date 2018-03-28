@@ -5,20 +5,13 @@
     <form method="POST" action="/teams">
         @csrf
         <div class="form-group">
-            <label for="Player2_Email">Email address</label>
-            <input type="email" class="form-control" id="Player2_Email" name="email">
+            <label for="team_name">Team Name</label>
+            <input type="text" class="form-control" id="team_name" name="team_name">
         </div>
-
         <div class="form-group">
-            <label for="name">Player 2 Name</label>
-            <input type="text" class="form-control" id="name" name="name">
+            <button type="submit" class="btn btn-primary">Submit</button>
         </div>
-
-        <div class="form-group">
-            <label for="surname">Player 2 Surname</label>
-            <input type="text" class="form-control" id="surname" name="surname">
-        </div>
-
-        <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+
+    @include('layouts.errors')
 @endsection

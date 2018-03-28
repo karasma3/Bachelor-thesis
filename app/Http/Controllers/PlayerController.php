@@ -21,4 +21,7 @@ class PlayerController extends Controller
 
         return view('players.edit', compact('player'));
     }
+    public function store(){
+
+    }
 }
