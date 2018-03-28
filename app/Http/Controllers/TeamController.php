@@ -45,11 +45,17 @@ class TeamController extends Controller
         return redirect('/');
     }
     public function addPlayer(Team $team){
+        $email = request()->email;
+        $player_id = Player::select('id')->where('email', $email)->first();
+        if(!$player_id){
 
-        return redirect('/');
-//        $player = Player::find(request('mail'));
-//        $team->players()->attach($player->id);
-//        return redirect('/teams/'.$team->id);
+            session()->flash('fail', 'No player found!');
+        }
+        else{
+            $team->players()->attach($player_id);
+            session()->flash('message','Player was added to your team!');
+        }
+        return redirect('/teams/'.$team->id);
     }
     public function changeTeamName(Team $team){
         $this->validate(request(),[

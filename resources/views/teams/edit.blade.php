@@ -20,8 +20,8 @@
             @csrf
             {{--{{method_field('PATCH')}}--}}
             <div class="form-group">
-                <label for="mail">E-mail</label>
-                <input type="email" class="form-control" id="mail" name="mail">
+                <label for="email">E-mail</label>
+                <input type="email" class="form-control" id="email" name="email">
             </div>
             <button type="submit" class="btn btn-primary">Add player</button>
         </form>

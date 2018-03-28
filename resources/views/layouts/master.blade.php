@@ -28,6 +28,11 @@
         {{ $flash }}
     </div>
 @endif
+@if($flash = session('fail'))
+    <div class="alert alert-danger" role="alert">
+        {{ $flash }}
+    </div>
+@endif
 
 <div class="blog-header">
     <div class="container">
