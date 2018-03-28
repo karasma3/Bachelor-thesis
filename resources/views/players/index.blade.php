@@ -2,9 +2,10 @@
 
 @section('content')
     <div class="container">
+        <h1>Players:</h1>
         <ul>
             @foreach($players as $player)
-                <li>{{ $player }}</li>
+                <li><a href="/players/{{ $player->id }}">{{ $player->name }} {{ $player->surname }}</a></li>
             @endforeach
         </ul>
     </div>

@@ -3,15 +3,10 @@
 @section('content')
     <div class="container">
         <ul>
-            @foreach($archives as $archive)
-                <li>{{$archive->tournament_name}}</li>
-                @foreach($groups as $group)
-                    @if($archive->id == $group->tournament_id)
-                            <ul>
-                                <li>{{ $group->group_name }}</li>
-                            </ul>
-                    @endif
-                @endforeach
+             @foreach($groups as $group)
+                <ul>
+                    <li><a href="/groups/{{ $group->id }}">{{ $group->group_name }}</a></li>
+                </ul>
             @endforeach
         </ul>
     </div>

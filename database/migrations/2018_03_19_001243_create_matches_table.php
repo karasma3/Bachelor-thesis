@@ -19,8 +19,8 @@ class CreateMatchesTable extends Migration
             $table->integer('team_id_second');
             $table->integer('group_id')->nullable();
             $table->integer('elimination_id')->nullable();
-            $table->integer('score_first_team')->nullable();
-            $table->integer('score_second_team')->nullable();
+            $table->integer('score_first')->nullable();
+            $table->integer('score_second')->nullable();
             $table->timestamps();
         });
     }

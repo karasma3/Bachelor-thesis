@@ -14,5 +14,7 @@
                 <li> <a href="/teams/{{ $team->id }}">{{ $team -> team_name }}</a></li>
             @endforeach
         </ul>
+        <h1>Edit:</h1>
+        <a href="/players/{{ $player->id }}/edit">Edit player</a>
     </div>
 @endsection

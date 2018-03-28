@@ -4,7 +4,7 @@
     <div class="container">
         <ul>
             @foreach($matches as $match)
-                <li>{{ $match }}</li>
+                <li><a href="/matches/{{ $match->id }}">{{ $match->id }}</a></li>
             @endforeach
         </ul>
     </div>

@@ -35,8 +35,9 @@ class AuthController extends Controller
 
         //validate the form
         $this->validate(request(),[
-            'name' => 'required',
-            'email' => 'required|email',
+            'name' => 'required|string|min:0',
+            'surname' => 'required|string|min:0',
+            'email' => 'required|email|unique:players',
             'password' => 'required|confirmed'
         ]);
         //create and save player
