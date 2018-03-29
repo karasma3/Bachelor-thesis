@@ -16,6 +16,8 @@ Route::get('/', function () {
 }) -> name('home');
 
 Route::get('/tournaments', 'TournamentController@index');
+Route::get('/tournaments/create', 'TournamentController@create');
+Route::post('/tournaments', 'TournamentController@store');
 Route::get('/tournaments/{tournament}', 'TournamentController@show');
 Route::get('/tournaments/{tournament}/join', 'TournamentController@join');
 Route::post('/tournaments/{tournament}/join', 'TournamentController@addPlayer');

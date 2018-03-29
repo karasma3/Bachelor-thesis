@@ -11,5 +11,6 @@
             @endforeach
         </ul>
         <a href="/tournaments/{{ $tournament->id }}/join"><button type="button" class="btn btn-info">Sign in</button></a>
+        <a href="/tournaments"><button type="button" class="btn btn-dark">Go back</button></a>
     </div>
 @endsection
