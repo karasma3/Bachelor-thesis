@@ -19,6 +19,8 @@ Route::get('/tournaments', 'TournamentController@index');
 Route::get('/tournaments/create', 'TournamentController@create');
 Route::post('/tournaments', 'TournamentController@store');
 Route::get('/tournaments/{tournament}', 'TournamentController@show');
+Route::post('/tournaments/{tournament}/change_tournament_name', 'TournamentController@changeTournamentName');
+Route::get('/tournaments/{tournament}/edit', 'TournamentController@edit');
 Route::get('/tournaments/{tournament}/join', 'TournamentController@join');
 Route::post('/tournaments/{tournament}/join', 'TournamentController@addPlayer');
 
