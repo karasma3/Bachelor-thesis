@@ -1,7 +1,7 @@
 <div class="col-sm-3 offset-sm-1 blog-sidebar">
     <div class="sidebar-module sidebar-module-inset">
         <h4>About</h4>
-        <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
+        <p>Strahovská liga ve stolním tenise je studentská soutěž probíhající na strahovských kolejích, která vznikla v letním semetru 2011. Soutěž se hraje semestrálně (tj. 2 ročníky do roka) a může se jí zúčastnit kterýkoliv člen klubu Silicon Hill (chápej kluci i holky, když vás bude dost budete mít oddělenou soutěž).</p>
     </div>
     <div class="sidebar-module">
         <h4>Tournaments</h4>
