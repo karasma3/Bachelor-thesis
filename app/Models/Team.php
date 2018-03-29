@@ -17,4 +17,7 @@ class Team extends Model
     public function elimination(){
         return $this->belongsTo(Elimination::class);
     }
+    public function tournaments(){
+        return $this->belongsToMany( Tournament::class);
+    }
 }
