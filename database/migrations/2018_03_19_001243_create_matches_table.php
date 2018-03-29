@@ -21,6 +21,8 @@ class CreateMatchesTable extends Migration
             $table->integer('elimination_id')->nullable();
             $table->integer('score_first')->nullable();
             $table->integer('score_second')->nullable();
+            $table->foreign('team_id_first')->references('id')->on('teams')->onDelete('cascade');
+            $table->foreign('team_id_second')->references('id')->on('teams')->onDelete('cascade');
             $table->timestamps();
         });
     }
