@@ -4,7 +4,7 @@
     <div class="container">
         <h1>Tournament: {{ $tournament -> tournament_name }}</h1>
 
-        <h2>Signed players:</h2>
+        <h2>Signed teams:</h2>
         <ul>
             @foreach($tournament->teams as $team)
                 <li><a href="/teams/{{ $team->id }}">{{ $team->team_name }}</a> </li>
