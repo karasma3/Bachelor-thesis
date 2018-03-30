@@ -10,7 +10,7 @@ class TeamController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('guest', ['only' => 'index', 'show']);
+//        $this->middleware('guest', ['only' => 'index', 'show']);
     }
     public function index(){
         $teams = Team::all();
@@ -29,6 +29,10 @@ class TeamController extends Controller
 
         return view('teams.edit', compact('team'));
     }
+    public function delete(Team $team){
+
+        return view('teams.delete', compact('team'));
+    }
     public function store(){
 
         $this->validate(request(),[
@@ -44,16 +48,30 @@ class TeamController extends Controller
         session()->flash('message','Your TEAM was created!');
         return redirect('/');
     }
+    public function destroy(Team $team){
+        if(!$team) return redirect('/');
+        try {
+            $team->players()->detach();
+            $team->delete();
+        } catch (\Exception $e) {
+            session()->flash('fail','No team found!');
+        }
+        session()->flash('message','Your team was removed!');
+        return redirect('/');
+    }
     public function addPlayer(Team $team){
         $email = request()->email;
-        $player_id = Player::select('id')->where('email', $email)->first();
-        if(!$player_id){
-
+        $player = Player::select('id')->where('email', $email)->first();
+        if(!$player){
             session()->flash('fail', 'No player found!');
         }
         else{
-            $team->players()->attach($player_id);
-            session()->flash('message','Player was added to your team!');
+            if($team->players()->find($player->id))
+                session()->flash('fail', 'Player is already part of this team!');
+            else {
+                $team->players()->attach($player);
+                session()->flash('message', 'Player was added to your team!');
+            }
         }
         return redirect('/teams/'.$team->id);
     }
@@ -64,6 +82,6 @@ class TeamController extends Controller
         $team->team_name = request('team_name');
         $team->save();
         session()->flash('message','Your team name was changed!');
-        return redirect('/');
+        return redirect('/teams/'.$team->id);
     }
 }

@@ -33,4 +33,15 @@ class MatchController extends Controller
         if($group) $match = $group->matches()->save($match);
         if($elimination) $match = $elimination->matches()->save($match);
     }
+    public function submitScore(Match $match){
+        $this->validate(request(),[
+            'score_first' => 'required|integer|min:0|max:4',
+            'score_second' => 'required|integer|min:0|max:4'
+        ]);
+        $match->score_first = request('score_first');
+        $match->score_second = request('score_second');
+        $match->save();
+        session()->flash('message','Your result was given!');
+        return redirect('/matches/'.$match->id);
+    }
 }

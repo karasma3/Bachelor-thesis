@@ -12,6 +12,9 @@ class Tournament extends Model
     public function eliminations(){
         return $this->hasMany(Elimination::class);
     }
+    public function teams(){
+        return $this->belongsToMany( Team::class);
+    }
     public static function archives(){
 
         return static::selectRaw('tournament_name, id, count(*) as t_name')

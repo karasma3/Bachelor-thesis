@@ -2,9 +2,10 @@
 
 @section('content')
     <div class="container">
+        <h1>Matches:</h1>
         <ul>
             @foreach($matches as $match)
-                <li>{{ $match }}</li>
+                <li><a href="/matches/{{ $match->id }}">{{ $match->buildName() }}</a></li>
             @endforeach
         </ul>
     </div>
