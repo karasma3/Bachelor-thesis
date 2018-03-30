@@ -8,6 +8,11 @@ use App\Models\Tournament;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * Class TournamentController
+ *
+ * @package App\Http\Controllers
+ */
 class TournamentController extends Controller
 {
     public function index(){
@@ -29,6 +34,13 @@ class TournamentController extends Controller
     public function join(Tournament $tournament){
         return view('tournaments.join', compact('tournament'));
     }
+
+    /**
+     * Method for adding Team into the Tournament - validates the signing in Team
+     *
+     * @param Tournament $tournament
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function addTeam(Tournament $tournament){
         if(auth()->check()) {
             $this->validate(request(),[
@@ -44,6 +56,18 @@ class TournamentController extends Controller
         }
         return redirect('/tournaments/'.$tournament->id);
     }
+    /**
+     * Creating X Groups depending on number of Teams signed in to Tournament
+     *
+     * @param Tournament $tournament
+     * @var  $team_ids - stores all the Team id associated with $tournament, in random order
+     * @var $groups - multidimensional array, stores X Groups by 4 Teams
+     * @var $group - 1 Group with 4 Teams
+     * @var $team - Team
+     * @var $new_group - newly created Group
+     * @var group_name - generating names for group, starting from 'A'
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function generateGroups(Tournament $tournament){
         $team_ids = DB::table('team_tournament')->select('team_id')->where('tournament_id', $tournament->id)->inRandomOrder()->get()->toArray();
         $groups = array_chunk($team_ids, 4, false);
@@ -60,6 +84,13 @@ class TournamentController extends Controller
         }
         return redirect('/tournaments/'.$tournament->id);
     }
+
+    /**
+     * Method for changing the current Tournament name - validates Tournament name
+     *
+     * @param Tournament $tournament
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function changeTournamentName(Tournament $tournament){
         $this->validate(request(),[
             'tournament_name' => 'required|unique:tournaments|min:3|max:20|string'
@@ -69,6 +100,12 @@ class TournamentController extends Controller
         session()->flash('message','Your tournament name was changed!');
         return redirect('/tournaments/'.$tournament->id);
     }
+
+    /**
+     * Store method - validates Tournament name
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function store(){
         $this->validate(request(),[
             'tournament_name' => 'required|unique:tournaments|min:3|max:20|string'

@@ -3,7 +3,11 @@
 namespace App\Models;
 
 
-
+/**
+ * Class Elimination
+ *
+ * @package App\Models
+ */
 class Elimination extends Model
 {
     public function tournament(){

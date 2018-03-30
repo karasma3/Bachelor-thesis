@@ -8,6 +8,10 @@ use App\Models\Team;
 use Illuminate\Http\Request;
 use App\Models\Match;
 
+/**
+ * Class MatchController
+ * @package App\Http\Controllers
+ */
 class MatchController extends Controller
 {
     public function index(){
@@ -33,6 +37,13 @@ class MatchController extends Controller
         if($group) $match = $group->matches()->save($match);
         if($elimination) $match = $elimination->matches()->save($match);
     }
+
+    /**
+     * Method for submitting the final score - validation of scores
+     *
+     * @param Match $match
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function submitScore(Match $match){
         $this->validate(request(),[
             'score_first' => 'required|integer|min:0|max:4',

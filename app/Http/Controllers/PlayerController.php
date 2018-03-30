@@ -7,6 +7,11 @@ use App\Models\Player;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * Class PlayerController
+ *
+ * @package App\Http\Controllers
+ */
 class PlayerController extends Controller
 {
     public function index(){
@@ -23,6 +28,13 @@ class PlayerController extends Controller
 
         return view('players.edit', compact('player'));
     }
+
+    /**
+     * Method for editing player - validates name, surname and email after that it updates Player
+     *
+     * @param Player $player
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function editPlayer(Player $player){
         $this->validate(request(),[
             'name' => 'required|string|min:0|max:20',
@@ -36,6 +48,13 @@ class PlayerController extends Controller
         session()->flash('message','Your profile was updated!');
         return redirect('/players/'.$player->id);
     }
+
+    /**
+     * Method for changing the current password - checks for current password and validates the new password
+     *
+     * @param Player $player
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function changePassword(Player $player){
 
         $this->validate(request(),[

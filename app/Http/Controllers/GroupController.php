@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Group;
 
+/**
+ * Class GroupController
+ *
+ * @package App\Http\Controllers
+ */
 class GroupController extends Controller
 {
     public function index(){

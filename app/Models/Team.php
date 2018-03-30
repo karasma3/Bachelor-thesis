@@ -2,7 +2,11 @@
 
 namespace App\Models;
 
-
+/**
+ * Class Team
+ *
+ * @package App\Models
+ */
 class Team extends Model
 {
     public function matches(){

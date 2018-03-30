@@ -2,7 +2,11 @@
 
 namespace App\Models;
 
-
+/**
+ * Class Tournament
+ *
+ * @package App\Models
+ */
 class Tournament extends Model
 {
     public function groups(){
@@ -15,8 +19,12 @@ class Tournament extends Model
     public function teams(){
         return $this->belongsToMany( Team::class);
     }
+    /**
+     * Method for getting Tournaments from the Database
+     *
+     * @return mixed
+     */
     public static function archives(){
-
         return static::selectRaw('tournament_name, id, count(*) as t_name')
             ->groupBy('tournaments.tournament_name', 'id')
             ->orderBy('tournaments.tournament_name')

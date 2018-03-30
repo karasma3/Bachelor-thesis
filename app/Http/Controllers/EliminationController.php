@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Elimination;
 use Illuminate\Http\Request;
 
+/**
+ * Class EliminationController
+ *
+ * @package App\Http\Controllers
+ */
 class EliminationController extends Controller
 {
     public function index(){

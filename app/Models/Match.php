@@ -3,7 +3,11 @@
 namespace App\Models;
 
 
-
+/**
+ * Class Match
+ *
+ * @package App\Models
+ */
 class Match extends Model
 {
     public function group(){

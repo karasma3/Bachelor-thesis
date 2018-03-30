@@ -3,7 +3,11 @@
 namespace App\Models;
 
 
-
+/**
+ * Class Group
+ *
+ * @package App\Models
+ */
 class Group extends Model
 {
     public function tournament(){
