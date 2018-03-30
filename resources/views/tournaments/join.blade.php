@@ -16,9 +16,10 @@
                     @endforeach
                 </select>
             </div>
+            <button type="submit" class="btn btn-primary">Yes, sign me in</button>
         </form>
         <div class="form-group">
-            <button type="submit" class="btn btn-primary">Yes, sign me in</button>
+
             <a href="/tournaments/{{ $tournament->id }}"><button type="submit" class="btn btn-dark">No, go back</button></a>
         </div>
     </div>
