@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+use App\Http\Controllers\GroupController;
 
 
 /**
@@ -18,5 +19,8 @@ class Group extends Model
     }
     public function matches(){
         return $this->hasMany(Match::class);
+    }
+    public function generateMatches(GroupController $groupController){
+        return $groupController->generateMatches($this);
     }
 }

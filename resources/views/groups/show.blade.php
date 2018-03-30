@@ -3,15 +3,19 @@
 @section('content')
     <div class="container">
         <h1>Group: {{ $group -> group_name }}</h1>
-        <ul>
-            @foreach($group->matches as $match)
-                <li><a href="/matches/{{ $match->id }}">{{ $match->id }}</a></li>
-            @endforeach
-        </ul>
-        <ul>
-            @foreach($group->teams as $team)
-                <li><a href="/teams/{{ $team->id }}">{{ $team->id }}</a></li>
-            @endforeach
-        </ul>
+        <h2>Teams:</h2>
+
+        @foreach($group->teams as $team)
+            <div class="form-group ml-md-5">
+                <a href="/teams/{{ $team->id }}">{{ $team->team_name }}</a>
+            </div>
+        @endforeach
+
+        <h2>Matches:</h2>
+        @foreach($group->matches as $match)
+            <div class="form-group ml-md-5">
+                <a href="/matches/{{ $match->id }}">{{ $match->buildName() }}</a>
+            </div>
+        @endforeach
     </div>
 @endsection
