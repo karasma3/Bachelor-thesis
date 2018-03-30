@@ -26,10 +26,19 @@ class TournamentController extends Controller
     public function join(Tournament $tournament){
         return view('tournaments.join', compact('tournament'));
     }
-    public function addPlayer(Tournament $tournament){
-        if(auth()->check())
-            $tournament->teams()->attach(request('team_name'));
-        session()->flash('message','You were signed in into the TOURNAMENT!');
+    public function addTeam(Tournament $tournament){
+        if(auth()->check()) {
+            $this->validate(request(),[
+               'team_name' => 'required'
+            ]);
+            if(!$tournament->teams()->find(request()->get('team_name'))) {
+                $tournament->teams()->attach(request('team_name'));
+                session()->flash('message', 'You were signed in into the TOURNAMENT!');
+            }
+            else{
+                session()->flash('fail', 'This TEAM is already signed in!');
+            }
+        }
         return redirect('/tournaments/'.$tournament->id);
     }
     public function changeTournamentName(Tournament $tournament){
