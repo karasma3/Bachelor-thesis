@@ -16,11 +16,11 @@
                     @endforeach
                 </select>
             </div>
-            <div class="form-group">
-               <button type="submit" class="btn btn-primary">Yes, sign me in</button>
-                <a href="/tournaments/{{ $tournament->id }}"><button type="submit" class="btn btn-dark">No, go back</button></a>
-            </div>
         </form>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Yes, sign me in</button>
+            <a href="/tournaments/{{ $tournament->id }}"><button type="submit" class="btn btn-dark">No, go back</button></a>
+        </div>
     </div>
     @include('layouts.errors')
 @endsection
