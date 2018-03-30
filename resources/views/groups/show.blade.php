@@ -8,5 +8,10 @@
                 <li><a href="/matches/{{ $match->id }}">{{ $match->id }}</a></li>
             @endforeach
         </ul>
+        <ul>
+            @foreach($group->teams as $team)
+                <li><a href="/teams/{{ $team->id }}">{{ $team->id }}</a></li>
+            @endforeach
+        </ul>
     </div>
 @endsection

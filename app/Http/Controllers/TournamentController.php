@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Group;
+use App\Models\Team;
 use App\Models\Tournament;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TournamentController extends Controller
 {
@@ -37,6 +40,22 @@ class TournamentController extends Controller
             }
             else{
                 session()->flash('fail', 'This TEAM is already signed in!');
+            }
+        }
+        return redirect('/tournaments/'.$tournament->id);
+    }
+    public function generateGroups(Tournament $tournament){
+        $team_ids = DB::table('team_tournament')->select('team_id')->where('tournament_id', $tournament->id)->inRandomOrder()->get()->toArray();
+        $groups = array_chunk($team_ids, 4, false);
+        $group_name = 'A';
+        foreach ($groups as $group){
+            $new_group = Group::create([
+                'tournament_id' => $tournament->id,
+                'group_name' => $group_name
+            ]);
+            $group_name++;
+            foreach ($group as $team){
+                $new_group->teams()->save(Team::find($team->team_id));
             }
         }
         return redirect('/tournaments/'.$tournament->id);

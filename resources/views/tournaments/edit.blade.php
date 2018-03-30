@@ -15,6 +15,11 @@
         </form>
     </div>
 
+    <div class="form-group">
+        <a href="/tournaments/{{ $tournament->id }}/generate_groups">
+            <button type="submit" class="btn btn-info">Generate groups!</button>
+        </a>
+    </div>
     TODO
     Generate groups
     Generate eliminations
