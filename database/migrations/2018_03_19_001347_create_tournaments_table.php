@@ -16,6 +16,7 @@ class CreateTournamentsTable extends Migration
         Schema::create('tournaments', function (Blueprint $table) {
             $table->increments('id');
             $table->string('tournament_name')->unique();
+            $table->enum('phase', ['created', 'group_stage', 'elimination_stage', 'closed'])->default('created');
             $table->timestamps();
         });
     }
