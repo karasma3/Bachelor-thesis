@@ -51,6 +51,7 @@ class MatchController extends Controller
         ]);
         $match->score_first = request('score_first');
         $match->score_second = request('score_second');
+        $match->played = true;
         $match->save();
         session()->flash('message','Your result was given!');
         return redirect('/matches/'.$match->id);

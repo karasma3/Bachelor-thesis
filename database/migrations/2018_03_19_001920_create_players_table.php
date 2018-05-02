@@ -19,6 +19,7 @@ class CreatePlayersTable extends Migration
             $table->string('surname');
             $table->string('email')->unique();
             $table->string('password');
+            $table->boolean('is_admin')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });

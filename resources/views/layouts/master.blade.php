@@ -34,12 +34,7 @@
     </div>
 @endif
 
-<div class="blog-header">
-    <div class="container">
-        <h1 class="blog-title">Pinec SH</h1>
-        <p class="lead blog-description">SH liga</p>
-    </div>
-</div>
+
 
 <div class="container">
 
