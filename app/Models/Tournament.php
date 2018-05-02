@@ -19,6 +19,10 @@ class Tournament extends Model
     public function teams(){
         return $this->belongsToMany( Team::class);
     }
+    public function isGroupStage(){
+        if("group_stage"==$this->phase) return true;
+        return false;
+    }
     /**
      * Method for getting Tournaments from the Database
      *

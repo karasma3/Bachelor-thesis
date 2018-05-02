@@ -23,4 +23,7 @@ class Group extends Model
     public function generateMatches(GroupController $groupController){
         return $groupController->generateMatches($this);
     }
+    public function findMatch($team1, $team2){
+        return Match::where([['team_id_first','=',$team1],['team_id_second','=',$team2]])->orWhere([['team_id_first','=',$team2],['team_id_second','=',$team1]])->get();
+    }
 }

@@ -17,6 +17,7 @@ class TournamentController extends Controller
 {
     const GROUP_NAME = 'A';
     const GROUP_SIZE = 4;
+    const GROUP_STAGE = 'group_stage';
 
     public function index(){
         $tournaments = Tournament::all();
@@ -78,7 +79,8 @@ class TournamentController extends Controller
         foreach ($group_ids as $group_id) {
             DB::table('matches')->where('group_id', '=', $group_id->id)->delete();
         }
-        DB::table('groups')->select('id')->where('tournament_id', '=', $tournament->id)->delete();
+//        DB::table('groups')->select('id')->where('tournament_id', '=', $tournament->id)->delete();
+        $tournament->groups()->delete();
         //create groups
         $team_ids = DB::table('team_tournament')->select('team_id')->where('tournament_id', $tournament->id)->inRandomOrder()->get()->toArray();
         $groups = array_chunk($team_ids, self::GROUP_SIZE, false);
@@ -95,6 +97,8 @@ class TournamentController extends Controller
             //create matches
             $new_group->generateMatches($groupController);
         }
+        $tournament->phase = self::GROUP_STAGE;
+        $tournament->save();
         return redirect('/tournaments/'.$tournament->id);
     }
 
