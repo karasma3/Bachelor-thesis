@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Elimination;
 use App\Models\Group;
 use App\Models\Team;
 use Illuminate\Http\Request;
@@ -27,15 +26,14 @@ class MatchController extends Controller
 
         return view('matches.edit', compact('match'));
     }
-    public function store(Team $team1, Team $team2, Group $group, Elimination $elimination){
+    public function store(Team $team1, Team $team2, Group $group){
 
         $match = Match::create()([
         ]);
 
         $match = $team1->matches()->save($match);
         $match = $team2->matches()->save($match);
-        if($group) $match = $group->matches()->save($match);
-        if($elimination) $match = $elimination->matches()->save($match);
+        $group->matches()->save($match);
     }
 
     /**

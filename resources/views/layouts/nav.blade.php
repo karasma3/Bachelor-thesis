@@ -4,7 +4,6 @@
             <a class="nav-link" href="/">Domov</a>
             <a class="nav-link" href="/tournaments">Turnaje</a>
             {{--<a class="nav-link" href="/groups">Groups</a>--}}
-            {{--<a class="nav-link" href="/eliminations">Eliminations</a>--}}
             <a class="nav-link" href="/teams">Tímy</a>
             {{--<a class="nav-link" href="/matches">Matches</a>--}}
             <a class="nav-link" href="/players">Hráči</a>

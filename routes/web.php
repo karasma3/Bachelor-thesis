@@ -28,9 +28,6 @@ Route::post('/tournaments/{tournament}/join', 'TournamentController@addTeam');
 Route::get('/groups', 'GroupController@index');
 Route::get('/groups/{group}', 'GroupController@show');
 
-Route::get('/eliminations', 'EliminationController@index');
-Route::get('/eliminations/{elimination}', 'EliminationController@show');
-
 Route::get('/matches', 'MatchController@index');
 Route::get('/matches/{match}', 'MatchController@show');
 Route::patch('/matches/{match}', 'MatchController@submitScore');

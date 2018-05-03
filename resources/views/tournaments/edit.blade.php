@@ -20,9 +20,6 @@
             <button type="submit" class="btn btn-info">Generate groups!</button>
         </a>
     </div>
-    TODO
-    Generate groups
-    Generate eliminations
 
     <div class="form-group">
         <a href="/tournaments/{{$tournament->id}}"><button type="submit" class="btn btn-dark">Go back</button></a>

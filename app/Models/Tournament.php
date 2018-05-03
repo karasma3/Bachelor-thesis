@@ -13,9 +13,6 @@ class Tournament extends Model
         return $this->hasMany(Group::class);
     }
 
-    public function eliminations(){
-        return $this->hasMany(Elimination::class);
-    }
     public function teams(){
         return $this->belongsToMany( Team::class);
     }
