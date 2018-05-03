@@ -15,11 +15,11 @@
             @endforeach
         </ol>
     </div>
-    <div class="sidebar-module sidebar-module-inset mt-4 mb-5">
-        <h4>Kontakt</h4>
-        <ol class="list-unstyled">
-            <li><a href="https://www.facebook.com/groups/SHPinec/" target="_blank">Facebook</a></li>
-            <li><a href="mailto:m.karas@sh.cvut.cz" target="_blank">E-mail</a></li>
-        </ol>
-    </div>
+    {{--<div class="sidebar-module sidebar-module-inset mt-4 mb-5">--}}
+        {{--<h4>Kontakt</h4>--}}
+        {{--<ol class="list-unstyled">--}}
+            {{--<li><a href="https://www.facebook.com/groups/SHPinec/" target="_blank">Facebook</a></li>--}}
+            {{--<li><a href="mailto:m.karas@sh.cvut.cz" target="_blank">E-mail</a></li>--}}
+        {{--</ol>--}}
+    {{--</div>--}}
 </div><!-- /.blog-sidebar -->

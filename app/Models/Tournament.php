@@ -19,8 +19,12 @@ class Tournament extends Model
     public function teams(){
         return $this->belongsToMany( Team::class);
     }
+    public function isCreated(){
+        if("created" == $this->phase) return true;
+        return false;
+    }
     public function isGroupStage(){
-        if("group_stage"==$this->phase) return true;
+        if("group_stage" == $this->phase) return true;
         return false;
     }
     /**

@@ -2,9 +2,9 @@
 
 @section('content')
     <div class="container">
-        <h1>Tournament: {{ $tournament -> tournament_name }}</h1>
+        <h1>Turnaj: {{ $tournament -> tournament_name }}</h1>
 
-        <h2>Signed teams:</h2>
+        <h2>Prihlásené tímy:</h2>
         <ul>
             @foreach($tournament->teams as $team)
                 <li><a href="/teams/{{ $team->id }}">{{ $team->team_name }}</a> </li>
@@ -31,13 +31,13 @@
                             <th> {{$team->team_name}} </th>
                             @foreach($group->teams as $opponent)
                                 @if($team->id==$opponent->id)
-                                    <th bgcolor="#a9a9a9">X</th>
+                                    <th class="text-center" bgcolor="#a9a9a9">X</th>
                                 @else
 
                                     @if($group->findMatch($team->id,$opponent->id)->first()->team_id_first == $team->id)
-                                        <th>{{$group->findMatch($team->id,$opponent->id)->first()->buildResult()}}</th>
+                                        <th class="text-center">{{$group->findMatch($team->id,$opponent->id)->first()->buildResult()}}</th>
                                     @else
-                                        <th>{{$group->findMatch($team->id,$opponent->id)->first()->buildReverseResult()}}</th>
+                                        <th class="text-center">{{$group->findMatch($team->id,$opponent->id)->first()->buildReverseResult()}}</th>
                                     @endif
                                 @endif
                             @endforeach
@@ -50,9 +50,11 @@
                 </table>
             @endforeach
         @endif
-        <a href="/tournaments/{{ $tournament->id }}/join"><button type="button" class="btn btn-info">Sign in</button></a>
-        <a href="/tournaments"><button type="button" class="btn btn-dark">Go back</button></a>
+        @if($tournament->isCreated())
+            <a href="/tournaments/{{ $tournament->id }}/join"><button type="button" class="btn btn-info">Registrovať</button></a>
+        @endif
+        <a href="/tournaments"><button type="button" class="btn btn-dark">Späť</button></a>
         </br>
-        <a href="/tournaments/{{ $tournament->id }}/edit">Edit tournament</a>
+        <a href="/tournaments/{{ $tournament->id }}/edit">Správa turnaja</a>
     </div>
 @endsection
