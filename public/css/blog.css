@@ -76,6 +76,11 @@ h6, .h6 {
     border-left: .3rem solid transparent;
 }
 
+.table td, .table th, .table thead th{
+    vertical-align: middle;
+    white-space: nowrap;
+    width: 1%;
+}
 
 /*
  * Blog name and description

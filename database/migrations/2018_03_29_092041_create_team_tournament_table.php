@@ -16,6 +16,7 @@ class CreateTeamTournamentTable extends Migration
         Schema::create('team_tournament', function (Blueprint $table) {
             $table->integer('team_id');
             $table->integer('tournament_id');
+            $table->boolean('elimination_stage')->default(false);
             $table->primary(['team_id', 'tournament_id']);
 
             $table->foreign('team_id')->references('id')->on('teams')->onDelete('cascade');

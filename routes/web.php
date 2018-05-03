@@ -21,14 +21,12 @@ Route::post('/tournaments', 'TournamentController@store');
 Route::get('/tournaments/{tournament}', 'TournamentController@show');
 Route::post('/tournaments/{tournament}/change_tournament_name', 'TournamentController@changeTournamentName');
 Route::get('/tournaments/{tournament}/edit', 'TournamentController@edit');
+Route::get('/tournaments/{tournament}/generate_groups', 'TournamentController@generateGroups');
 Route::get('/tournaments/{tournament}/join', 'TournamentController@join');
-Route::post('/tournaments/{tournament}/join', 'TournamentController@addPlayer');
+Route::post('/tournaments/{tournament}/join', 'TournamentController@addTeam');
 
 Route::get('/groups', 'GroupController@index');
 Route::get('/groups/{group}', 'GroupController@show');
-
-Route::get('/eliminations', 'EliminationController@index');
-Route::get('/eliminations/{elimination}', 'EliminationController@show');
 
 Route::get('/matches', 'MatchController@index');
 Route::get('/matches/{match}', 'MatchController@show');

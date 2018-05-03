@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Player;
 
+/**
+ * Class AuthController
+ *
+ * @package App\Http\Controllers
+ */
 class AuthController extends Controller
 {
     public function __construct()
@@ -20,6 +25,12 @@ class AuthController extends Controller
 
         return view('auth.login');
     }
+
+    /**
+     * Authentication of Player while logging in
+     *
+     * @return $this|\Illuminate\Http\RedirectResponse
+     */
     public function storeLogin(){
 
         if(! auth()->attempt(request(['email','password']))){
@@ -31,6 +42,12 @@ class AuthController extends Controller
 
         return redirect()->home();
     }
+
+    /**
+     * Registering new Player
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function storeRegister(){
 
         //validate the form
