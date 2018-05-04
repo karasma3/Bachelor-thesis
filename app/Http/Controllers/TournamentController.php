@@ -73,32 +73,8 @@ class TournamentController extends Controller
      * @var group_name - generating names for group, starting from 'A'
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function generateGroups(Tournament $tournament, GroupController $groupController){
-        //delete if previously generated
-        $group_ids = DB::table('groups')->select('id')->where('tournament_id', '=', $tournament->id)->get()->toArray();
-        foreach ($group_ids as $group_id) {
-            DB::table('matches')->where('group_id', '=', $group_id->id)->delete();
-        }
-//        DB::table('groups')->select('id')->where('tournament_id', '=', $tournament->id)->delete();
-        $tournament->groups()->delete();
-        //create groups
-        $team_ids = DB::table('team_tournament')->select('team_id')->where('tournament_id', $tournament->id)->inRandomOrder()->get()->toArray();
-        $groups = array_chunk($team_ids, self::GROUP_SIZE, false);
-        $group_name = self::GROUP_NAME;
-        foreach ($groups as $group){
-            $new_group = Group::create([
-                'tournament_id' => $tournament->id,
-                'group_name' => $group_name
-            ]);
-            $group_name++;
-            foreach ($group as $team){
-                $new_group->teams()->save(Team::find($team->team_id));
-            }
-            //create matches
-            $new_group->generateMatches($groupController);
-        }
-        $tournament->phase = self::GROUP_STAGE;
-        $tournament->save();
+    public function generateGroups(Tournament $tournament){
+        $tournament->generateGroups();
         return redirect('/tournaments/'.$tournament->id);
     }
 

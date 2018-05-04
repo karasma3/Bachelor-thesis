@@ -17,6 +17,7 @@ class CreateTeamsTable extends Migration
             $table->increments('id');
             $table->integer('group_id')->nullable();
             $table->string('team_name')->unique();
+            $table->boolean('active')->default(true);
             $table->timestamps();
         });
     }

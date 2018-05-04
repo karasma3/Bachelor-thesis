@@ -5,11 +5,13 @@
         <h1>Teams:</h1>
         <ul>
             @foreach($teams as $team)
-                <div class="form-group">
-                    <a href="/teams/{{ $team->id }}">
-                        {{ $team->team_name }}
-                    </a>
-                </div>
+                @if($team->active)
+                    <div class="form-group">
+                        <a href="/teams/{{ $team->id }}">
+                            {{ $team->team_name }}
+                        </a>
+                    </div>
+                @endif
             @endforeach
         </ul>
     </div>

@@ -10,7 +10,7 @@ namespace App\Models;
 class Team extends Model
 {
     public function matches(){
-        return $this->hasMany(Match::class);
+        return $this->hasMany(Match::class, 'team_id_first')->orWhere('team_id_second', $this->id);
     }
     public function players(){
         return $this->belongsToMany(Player::class);

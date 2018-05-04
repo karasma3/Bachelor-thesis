@@ -13,8 +13,19 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class Player extends Authenticatable
 {
     use Notifiable;
-    protected $guarded = [];
+    protected $fillable = [
+        'name',
+        'surname',
+        'email',
+        'password',
+        'is_admin'
+    ];
     protected $table = 'players';
+
+    public function getFullNameAttribute()
+    {
+        return $this->name . ' ' . $this->surname;
+    }
 
     public function teams(){
         return $this->belongsToMany(Team::class);

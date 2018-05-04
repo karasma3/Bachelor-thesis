@@ -3,13 +3,16 @@
 @section('content')
     <div class="container">
         <h1>Turnaj: {{ $tournament -> tournament_name }}</h1>
-
-        <h2>Prihlásené tímy:</h2>
-        <ul>
-            @foreach($tournament->teams as $team)
-                <li><a href="/teams/{{ $team->id }}">{{ $team->team_name }}</a> </li>
-            @endforeach
-        </ul>
+        <h3 class="mt-4 ml-5">Stav: {{$tournament->getState()}}</h3>
+        <div class="mt-5">
+        @if($tournament->isCreated())
+            <h2>Prihlásené tímy:</h2>
+            <ul>
+                @foreach($tournament->teams as $team)
+                    <li><a href="/teams/{{ $team->id }}">{{ $team->team_name }}</a> </li>
+                @endforeach
+            </ul>
+        @endif
         @if($tournament->isGroupStage())
             <h2>Skupiny:</h2>
             @foreach($tournament->groups as $group)
@@ -56,5 +59,6 @@
         <a href="/tournaments"><button type="button" class="btn btn-dark">Späť</button></a>
         </br>
         <a href="/tournaments/{{ $tournament->id }}/edit">Správa turnaja</a>
+        </div>
     </div>
 @endsection
