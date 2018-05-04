@@ -10,6 +10,9 @@ namespace App\Models;
  */
 class Match extends Model
 {
+    public function score(){
+        return $this->hasOne(Score::class);
+    }
     public function group(){
         return $this->belongsTo(Group::class);
     }
@@ -28,12 +31,22 @@ class Match extends Model
     public function teamSecondName(){
         return $this->teamSecond->team_name;
     }
+
+    public function scoreFirst()
+    {
+        return $this->score->score_first;
+    }
+
+    public function scoreSecond()
+    {
+        return $this->score->score_second;
+    }
     public function buildResult(){
         if($this->played)
-            return $this->score_first.':'.$this->score_second;
+            return $this->scoreFirst().':'.$this->scoreSecond();
     }
     public function buildReverseResult(){
         if($this->played)
-            return $this->score_second.':'.$this->score_first;
+            return $this->scoreSecond().':'.$this->scoreFirst();
     }
 }
