@@ -78,6 +78,12 @@ class TournamentController extends Controller
         return redirect('/tournaments/'.$tournament->id);
     }
 
+    public function calculateScore(Tournament $tournament){
+        foreach ($tournament->groups as $group){
+            $group->calculateScore();
+        }
+        return redirect('/tournaments/'.$tournament->id);
+    }
     /**
      * Method for changing the current Tournament name - validates Tournament name
      *

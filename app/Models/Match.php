@@ -27,18 +27,27 @@ class Match extends Model
     }
     public function teamFirstName(){
         return $this->teamFirst->team_name;
-}
+    }
     public function teamSecondName(){
         return $this->teamSecond->team_name;
     }
-
-    public function scoreFirst()
-    {
+    public function wonFirst(){
+        if($this->scoreFirst()!=0 and $this->scoreSecond()!=0)
+            if($this->scoreFirst()>$this->scoreSecond())
+                return true;
+        return false;
+    }
+    public function wonSecond(){
+        if($this->scoreFirst()!=0 and $this->scoreSecond()!=0)
+            if($this->scoreFirst()<$this->scoreSecond())
+                return true;
+        return false;
+    }
+    public function scoreFirst(){
         return $this->score->score_first;
     }
 
-    public function scoreSecond()
-    {
+    public function scoreSecond(){
         return $this->score->score_second;
     }
     public function buildResult(){

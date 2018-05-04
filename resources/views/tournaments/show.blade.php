@@ -44,9 +44,9 @@
                                     @endif
                                 @endif
                             @endforeach
-                            <th></th>
-                            <th></th>
-                            <th></th>
+                            <th class="text-center">{{$team->showPoints($group->id)}}</th>
+                            <th class="text-center">{{$team->buildScore($group->id)}}</th>
+                            <th class="text-center">{{$team->showOrder($group->id)}}</th>
                         </tr>
                     @endforeach
                     </tbody>

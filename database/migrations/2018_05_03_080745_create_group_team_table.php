@@ -17,7 +17,8 @@ class CreateGroupTeamTable extends Migration
             $table->integer('group_id');
             $table->integer('team_id');
             $table->primary(['group_id', 'team_id']);
-            $table->integer('score')->default(0);
+            $table->integer('score_won')->default(0);
+            $table->integer('score_lost')->default(0);
             $table->integer('points')->default(0);
             $table->integer('ordering')->nullable();
 

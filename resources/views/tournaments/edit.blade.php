@@ -20,6 +20,12 @@
             <button type="submit" class="btn btn-info">Generate groups!</button>
         </a>
     </div>
+{{--TODO not working--}}
+    <div class="form-group">
+        <a href="/tournaments/{{ $tournament->id }}/calculate_score">
+            <button type="submit" class="btn btn-info">Calculate score of all groups!</button>
+        </a>
+    </div>
 
     <div class="form-group">
         <a href="/tournaments/{{$tournament->id}}"><button type="submit" class="btn btn-dark">Go back</button></a>
