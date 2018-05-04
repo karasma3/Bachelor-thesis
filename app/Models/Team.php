@@ -15,8 +15,8 @@ class Team extends Model
     public function players(){
         return $this->belongsToMany(Player::class);
     }
-    public function group(){
-        return $this->belongsTo(Group::class);
+    public function groups(){
+        return $this->belongsToMany(Group::class);
     }
     public function tournaments(){
         return $this->belongsToMany( Tournament::class);

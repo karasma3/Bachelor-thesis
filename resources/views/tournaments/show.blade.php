@@ -16,7 +16,7 @@
                 <table class="table table-bordered">
                     <thead>
                     <tr>
-                        <th>{{$group->group_name}}</th>
+                        <th><a href="/groups/{{$group->id}}">{{$group->group_name}}</a></th>
                         @foreach($group->teams as $team)
                             <th>{{$team->team_name}}</th>
                         @endforeach
@@ -50,7 +50,7 @@
                 </table>
             @endforeach
         @endif
-        @if($tournament->isCreated())
+        @if($tournament->isCreated() and Auth::check())
             <a href="/tournaments/{{ $tournament->id }}/join"><button type="button" class="btn btn-info">Registrovať</button></a>
         @endif
         <a href="/tournaments"><button type="button" class="btn btn-dark">Späť</button></a>
