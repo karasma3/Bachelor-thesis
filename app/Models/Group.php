@@ -56,11 +56,25 @@ class Group extends Model
         return false;
     }
     public function calculateOrder(){
-        $teams = DB::table('group_team')->select('team_id')->where('group_id',$this->id)->orderByRaw('points DESC, score_won DESC, score_lost')->get();
+        $teams = DB::table('group_team')->select('team_id', 'points', 'score_won', 'score_lost')->where('group_id',$this->id)->orderByRaw('points DESC, score_won DESC, score_lost')->get();
         $ordering = 0;
+        $skip=0;
+        $tmp_team = null;
         foreach ($teams as $team){
-            $ordering++;
+            if($tmp_team){
+                if($tmp_team->points==$team->points and $tmp_team->score_won==$team->score_won and $tmp_team->score_lost==$team->score_lost){
+                    $skip++;
+                    DB::table('group_team')->where([['group_id', $this->id],['team_id',$team->team_id],])->update(['ordering'=>$ordering]);
+                    $tmp_team = $team;
+                    continue;
+                }
+                else{
+                    $skip=0;
+                }
+            }
+            $ordering+=$skip+1;
             DB::table('group_team')->where([['group_id', $this->id],['team_id',$team->team_id]])->update(['ordering' => $ordering]);
+            $tmp_team = $team;
         }
     }
     public function generateMatches(){
