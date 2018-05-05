@@ -63,16 +63,14 @@ class Group extends Model
                 $second_id = max($team_one->id,$team_two->id);
                 if($first_id!=$second_id){
                     if(!Match::where([['team_id_first', '=', $first_id],['team_id_second', '=', $second_id]])->exists()) {
+                        $score = Score::create([
+                        ]);
                         $match = Match::create([
                             'team_id_first' => $first_id,
                             'team_id_second' => $second_id,
-                            'group_id' => $this->id
+                            'group_id' => $this->id,
+                            'score_id' => $score->id
                         ]);
-                        $score = Score::create([
-                           'match_id' => $match->id
-                        ]);
-                        $match->score_id = $score->id;
-                        $match->save();
                     }
                 }
             }
