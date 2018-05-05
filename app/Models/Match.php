@@ -11,7 +11,7 @@ namespace App\Models;
 class Match extends Model
 {
     public function score(){
-        return $this->hasOne(Score::class);
+        return $this->belongsTo(Score::class);
     }
     public function group(){
         return $this->belongsTo(Group::class);

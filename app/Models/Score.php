@@ -13,6 +13,6 @@ class Score extends Model
 
     public function match()
     {
-        return $this->belongsTo(Match::class);
+        return $this->hasOne(Match::class);
     }
 }

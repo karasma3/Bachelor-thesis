@@ -46,7 +46,7 @@
                             @endforeach
                             <th class="text-center">{{$team->showPoints($group->id)}}</th>
                             <th class="text-center">{{$team->buildScore($group->id)}}</th>
-                            @if($team->buildScore($group->id)=="0:0")
+                            @if(!$group->showOrdering())
                                 <th></th>
                             @else
                                 <th class="text-center">{{$team->showOrder($group->id)}}</th>

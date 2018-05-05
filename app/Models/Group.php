@@ -47,7 +47,14 @@ class Group extends Model
             DB::table('group_team')->where([['group_id', $this->id],['team_id',$team->id]])->update(['points' => $points, 'score_won'=>$score_won, 'score_lost'=>$score_lost]);
         }
     }
-
+    public function showOrdering(){
+        foreach ($this->teams as $team){
+            if($team->buildScore($this->id)!="0:0"){
+                return true;
+            }
+        }
+        return false;
+    }
     public function calculateOrder(){
         $teams = DB::table('group_team')->select('team_id')->where('group_id',$this->id)->orderByRaw('points DESC, score_won DESC, score_lost')->get();
         $ordering = 0;
