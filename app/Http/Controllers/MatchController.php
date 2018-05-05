@@ -52,6 +52,8 @@ class MatchController extends Controller
         $match->score->save();
         $match->played = true;
         $match->save();
+        $match->group->calculateScore();
+        $match->group->calculateOrder();
         session()->flash('message','Your result was given!');
         return redirect('/matches/'.$match->id);
     }

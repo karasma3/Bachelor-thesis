@@ -81,6 +81,7 @@ class TournamentController extends Controller
     public function calculateScore(Tournament $tournament){
         foreach ($tournament->groups as $group){
             $group->calculateScore();
+            $group->calculateOrder();
         }
         return redirect('/tournaments/'.$tournament->id);
     }

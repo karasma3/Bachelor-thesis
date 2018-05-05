@@ -32,15 +32,21 @@ class Match extends Model
         return $this->teamSecond->team_name;
     }
     public function wonFirst(){
-        if($this->scoreFirst()!=0 and $this->scoreSecond()!=0)
-            if($this->scoreFirst()>$this->scoreSecond())
-                return true;
+        if($this->scoreFirst()==0 and $this->scoreSecond()==0){
+            return false;
+        }
+        if($this->scoreFirst()>$this->scoreSecond()) {
+            return true;
+        }
         return false;
     }
     public function wonSecond(){
-        if($this->scoreFirst()!=0 and $this->scoreSecond()!=0)
-            if($this->scoreFirst()<$this->scoreSecond())
-                return true;
+        if($this->scoreFirst()==0 and $this->scoreSecond()==0){
+            return false;
+        }
+        if($this->scoreFirst()<$this->scoreSecond()) {
+            return true;
+        }
         return false;
     }
     public function scoreFirst(){
