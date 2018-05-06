@@ -39,6 +39,7 @@ Route::get('/teams/create', 'TeamController@create');
 Route::post('/teams', 'TeamController@store');
 Route::get('/teams/{team}', 'TeamController@show');
 Route::delete('/teams/{team}', 'TeamController@destroy');
+Route::get('/teams/{team}/inactivate', 'TeamController@inactivateTeam');
 Route::get('/teams/{team}/edit', 'TeamController@edit');
 Route::get('/teams/{team}/delete', 'TeamController@delete');
 Route::post('/teams/{team}/change_team_name', 'TeamController@changeTeamName');

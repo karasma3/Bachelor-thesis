@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\DB;
 class Tournament extends Model
 {
     const GROUP_NAME = 'A';
-    const GROUP_SIZE = 4;
     const GROUP_STAGE = 'group_stage';
     public function groups(){
         return $this->hasMany(Group::class);

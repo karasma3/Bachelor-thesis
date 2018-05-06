@@ -23,7 +23,14 @@
         <h1>Tímy</h1>
         <ul>
             @foreach( $player -> teams as $team )
-                <li> <a href="/teams/{{ $team->id }}">{{ $team -> team_name }}</a></li>
+                <li>
+                    @if(!$team->active)
+                        <a href="/teams/{{ $team->id }}" class="text-info">{{ $team -> team_name }}</a>
+                        <p style="display: inline" class="text-danger text-uppercase">Neaktivní</p>
+                    @else
+                        <a href="/teams/{{ $team->id }}" class="text-justify">{{ $team -> team_name }}</a>
+                    @endif
+                </li>
             @endforeach
         </ul>
         <h1>Uprav:</h1>

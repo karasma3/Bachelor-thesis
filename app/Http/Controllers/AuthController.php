@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Player;
+use App\Models\Team;
 
 /**
  * Class AuthController
@@ -63,6 +64,10 @@ class AuthController extends Controller
             'surname' => request('surname'),
             'email' => request('email'),
             'password'=> bcrypt(request('password'))
+        ]);
+        $team = Team::create([
+            'team_name' => $player->name.' '.$player->surname,
+            'player_id_first' => $player->id
         ]);
         //sign in
         auth()->login($player);

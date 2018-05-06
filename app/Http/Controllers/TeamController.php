@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Player;
 use Illuminate\Http\Request;
 use App\Models\Team;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class TeamController
@@ -39,23 +40,26 @@ class TeamController extends Controller
         return view('teams.delete', compact('team'));
     }
 
+    public function inactivateTeam(Team $team){
+        $team->activate(false);
+        return redirect('/teams/'.$team->id);
+    }
     /**
      * Store method - validates Team name
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store(){
-
-        $this->validate(request(),[
-            'team_name' => 'required|unique:teams|min:3|max:20|string'
-        ]);
-        $team =Team::create( [
-            'team_name' => request('team_name')
-        ]);
-
-        $player = Player::find(request()->user()->id);
-        $team->players()->attach($player->id);
-
+        $player = Player::where('email',request('email'))->first();
+        if($player) {
+            $user = Auth::user();
+            $team = Team::create([
+                'team_name' => $user->surname . '/' . $player->surname,
+                'player_id_first' => $user->id,
+                'player_id_second' => $player->id,
+                'singles' => false
+            ]);
+        }
         session()->flash('message','Your TEAM was created!');
         return redirect('/');
     }
@@ -69,7 +73,6 @@ class TeamController extends Controller
     public function destroy(Team $team){
         if(!$team) return redirect('/');
         try {
-            $team->players()->detach();
             $team->delete();
         } catch (\Exception $e) {
             session()->flash('fail','No team found!');
@@ -93,10 +96,11 @@ class TeamController extends Controller
             session()->flash('fail', 'No player found!');
         }
         else{
-            if($team->players()->find($player->id))
+            if($team->player_id_first==$player->id || $team->player_id_second==$player->id)
                 session()->flash('fail', 'Player is already part of this team!');
             else {
-                $team->players()->attach($player);
+                $team->player_id_second=$player->id;
+                $team->save();
                 session()->flash('message', 'Player was added to your team!');
             }
         }

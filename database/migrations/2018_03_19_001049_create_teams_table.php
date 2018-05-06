@@ -18,6 +18,9 @@ class CreateTeamsTable extends Migration
             $table->string('team_name')->unique();
             $table->boolean('active')->default(true);
             $table->integer('last_placement')->default(65);
+            $table->boolean('singles')->default(true);
+            $table->integer('player_id_first');
+            $table->integer('player_id_second')->nullable();
             $table->timestamps();
         });
     }

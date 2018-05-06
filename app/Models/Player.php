@@ -28,7 +28,7 @@ class Player extends Authenticatable
     }
 
     public function teams(){
-        return $this->belongsToMany(Team::class);
+        return $this->hasMany(Team::class, 'player_id_first')->orWhere('player_id_second', $this->id);
     }
 
     // User::isAdmin()->get();
