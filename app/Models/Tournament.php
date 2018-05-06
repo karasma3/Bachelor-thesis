@@ -48,9 +48,35 @@ class Tournament extends Model
         }
 //        DB::table('groups')->select('id')->where('tournament_id', '=', $tournament->id)->delete();
         $this->groups()->delete();
+        //deciding on game system
+        $sum_teams = count($this->teams);
+        if($sum_teams >= 8 and $sum_teams <= 16){
+            $sum_groups = 2;
+        }else if($sum_teams > 16 and $sum_teams <= 32){
+            $sum_groups = 4;
+        }else if($sum_teams > 32){
+            $sum_groups = 8;
+        }else{
+            //less than 8
+            $this->phase = 'closed';
+            $this->save();
+            return;
+        }
+        //seeding into groups
+        $team_ids = DB::table('team_tournament')->select('team_id')->where('tournament_id', $this->id)->orderBy('last_placement')->get()->toArray();
+        $groups = [[]];
+        for($i=0;$i<$sum_groups-1;$i++){
+            array_push($groups, $tmp_teams=[]);
+        }
+        $i=0;
+        foreach($team_ids as $team) {
+            array_push($groups[$i],$team);
+            $i++;
+            if($i == $sum_groups){
+                $i=0;
+            }
+        }
         //create groups
-        $team_ids = DB::table('team_tournament')->select('team_id')->where('tournament_id', $this->id)->inRandomOrder()->get()->toArray();
-        $groups = array_chunk($team_ids, self::GROUP_SIZE, false);
         $group_name = self::GROUP_NAME;
         foreach ($groups as $group){
             $new_group = Group::create([

@@ -8,8 +8,8 @@
         <form method="POST" action="/tournaments/{{$tournament->id}}/join">
             @csrf
             <div class="form-group">
-                <label for="team_name">Team name:</label></br>
-                <select type="text" class="form-control"  id="team_name" name="team_name">
+                <label for="team_id">Team name:</label></br>
+                <select type="text" class="form-control"  id="team_id" name="team_id">
                     <option disabled selected> -- select an option -- </option>
                     @foreach( auth()->user()->teams as $team)
                         <option value="{{ $team->id }}">{{ $team->team_name }}</option>

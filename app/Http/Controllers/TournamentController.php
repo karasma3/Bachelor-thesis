@@ -48,10 +48,14 @@ class TournamentController extends Controller
     public function addTeam(Tournament $tournament){
         if(auth()->check()) {
             $this->validate(request(),[
-               'team_name' => 'required'
+               'team_id' => 'required'
             ]);
-            if(!$tournament->teams()->find(request()->get('team_name'))) {
-                $tournament->teams()->attach(request('team_name'));
+            if(count($tournament->teams) >= 64){
+                session()->flash('fail', 'Tournament is full!');
+                return redirect('/tournaments/'.$tournament->id);
+            }
+            if(!$tournament->teams()->find(request()->get('team_id'))) {
+                $tournament->teams()->attach(request('team_id'),['last_placement' => Team::where('id', request('team_id'))->first()->last_placement]);
                 session()->flash('message', 'You were signed in into the TOURNAMENT!');
             }
             else{
