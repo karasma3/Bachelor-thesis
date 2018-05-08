@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <h1>Groups:</h1>
+        <h1>Skupiny:</h1>
         <ul>
              @foreach($groups as $group)
                 <ul>

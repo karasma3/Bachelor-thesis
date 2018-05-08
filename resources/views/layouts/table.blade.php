@@ -6,7 +6,7 @@
             <th>{{$team->team_name}}</th>
         @endforeach
         <th>Body</th>
-        <th>Skore</th>
+        <th>Skóre</th>
         <th>Poradie</th>
     </tr>
     </thead>
@@ -20,9 +20,9 @@
                 @else
 
                     @if($group->findMatch($team->id,$opponent->id)->first()->team_id_first == $team->id)
-                        <th class="text-center">{{$group->findMatch($team->id,$opponent->id)->first()->buildResult()}}</th>
+                        <th class="text-center"><a href="/matches/{{$group->findMatch($team->id,$opponent->id)->first()->id}}">{{$group->findMatch($team->id,$opponent->id)->first()->buildResult()}}</a></th>
                     @else
-                        <th class="text-center">{{$group->findMatch($team->id,$opponent->id)->first()->buildReverseResult()}}</th>
+                        <th class="text-center"><a href="/matches/{{$group->findMatch($team->id,$opponent->id)->first()->id}}">{{$group->findMatch($team->id,$opponent->id)->first()->buildReverseResult()}}</a></th>
                     @endif
                 @endif
             @endforeach

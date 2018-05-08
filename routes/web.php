@@ -27,6 +27,7 @@ Route::get('/tournaments/{tournament}/next_round', 'TournamentController@nextRou
 Route::get('/tournaments/{tournament}/calculate_score', 'TournamentController@calculateScore');
 Route::get('/tournaments/{tournament}/join', 'TournamentController@join');
 Route::post('/tournaments/{tournament}/join', 'TournamentController@addTeam');
+Route::get('/tournaments/{tournament}/close', 'TournamentController@close');
 
 Route::get('/groups', 'GroupController@index');
 Route::get('/groups/{group}', 'GroupController@show');
@@ -40,12 +41,7 @@ Route::get('/teams', 'TeamController@index');
 Route::get('/teams/create', 'TeamController@create');
 Route::post('/teams', 'TeamController@store');
 Route::get('/teams/{team}', 'TeamController@show');
-Route::delete('/teams/{team}', 'TeamController@destroy');
 Route::get('/teams/{team}/inactivate', 'TeamController@inactivateTeam');
-Route::get('/teams/{team}/edit', 'TeamController@edit');
-Route::get('/teams/{team}/delete', 'TeamController@delete');
-Route::post('/teams/{team}/change_team_name', 'TeamController@changeTeamName');
-Route::post('/teams/{team}/add_player', 'TeamController@addPlayer');
 
 Route::get('/players', 'PlayerController@index');
 Route::get('/players/{player}', 'PlayerController@show');

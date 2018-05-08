@@ -23,24 +23,28 @@ class Tournament extends Model
         return $this->belongsToMany( Team::class);
     }
     public function isCreated(){
-        if("created" == $this->phase) return true;
+        if('created' == $this->phase) return true;
         return false;
     }
     public function isGroupStage(){
-        if("group_stage" == $this->phase) return true;
+        if('group_stage' == $this->phase) return true;
         return false;
     }
     public function isEliminationStage(){
-        if("elimination_stage" == $this->phase) return true;
+        if('elimination_stage' == $this->phase) return true;
+        return false;
+    }
+    public function isClosed(){
+        if('closed' == $this->phase) return true;
         return false;
     }
     public function getState()
     {
         switch ($this->phase) {
-            case 'group_stage': return "Skupinová časť";
-            case 'elimination_stage': return "Vyraďovacia časť";
-            case 'closed': return "Ukončený";
-            default: return "Registrácia";
+            case 'group_stage': return 'Skupinová časť';
+            case 'elimination_stage': return 'Vyraďovacia časť';
+            case 'closed': return 'Ukončený';
+            default: return 'Registrácia';
         }
     }
     public function generateGroups()
@@ -50,7 +54,6 @@ class Tournament extends Model
         foreach ($group_ids as $group_id) {
             DB::table('matches')->where('group_id', '=', $group_id->id)->delete();
         }
-//        DB::table('groups')->select('id')->where('tournament_id', '=', $tournament->id)->delete();
         $this->groups()->delete();
         //deciding on game system
         $sum_teams = count($this->teams);
@@ -64,6 +67,7 @@ class Tournament extends Model
             //less than 8
             $this->phase = 'closed';
             $this->save();
+            session()->flash('fail','Neprihlásilo sa aspoň 8 tímov. Turnaj bol ukončený!');
             return;
         }
         //seeding into groups
@@ -97,11 +101,12 @@ class Tournament extends Model
         }
         $this->phase = self::GROUP_STAGE;
         $this->save();
+        session()->flash('message','Skupiny boli vytvorené!');
     }
     public function createBracket(){
         $bracket = Group::create([
             'tournament_id' => $this->id,
-            'group_name' => "Round: 1",
+            'group_name' => 'Kolo: 1',
             'round' => 1
         ]);
         $i=0;
@@ -155,19 +160,20 @@ class Tournament extends Model
         }
         $this->phase='elimination_stage';
         $this->save();
+        session()->flash('message','Pavúk bol vytvorený!');
     }
     public function nextRound(){
         $last_round = Group::find(Group::select('id')->where('tournament_id',$this->id)->orderBy('round','desc')->first())->first();
         foreach ($last_round->matches as $match){
             if(!$match->played){
-                session()->flash('fail','All matches have to be played!');
+                session()->flash('fail','Všetky zápasy musia byť odohrané!');
                 return;
             }
         }
         $next_round = Group::create([
             'tournament_id' => $this->id,
             'round' => $last_round->round + 1,
-            'group_name' => "Round: ".($last_round->round+1)
+            'group_name' => 'Kolo: '.($last_round->round+1)
         ]);
         $match_number = $last_round->matches->max('match_number')+1;
         $tmp_match = null;
@@ -207,6 +213,7 @@ class Tournament extends Model
             $tmp_match = $match;
             $i++;
         }
+        session()->flash('message','Ďalšie kolo bolo vytvorené!');
     }
     /**
      * Method for getting Tournaments from the Database

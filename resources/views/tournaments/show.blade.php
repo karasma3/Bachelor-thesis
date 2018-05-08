@@ -37,6 +37,9 @@
                 </ul>
             @endforeach
         @endif
+        @if($tournament->isClosed())
+
+        @endif
         @if($tournament->isCreated() and Auth::check())
             <a href="/tournaments/{{ $tournament->id }}/join"><button type="button" class="btn btn-info">Registrovať</button></a>
         @endif

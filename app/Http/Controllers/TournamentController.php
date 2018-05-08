@@ -109,7 +109,7 @@ class TournamentController extends Controller
         ]);
         $tournament->tournament_name = request('tournament_name');
         $tournament->save();
-        session()->flash('message','Your tournament name was changed!');
+        session()->flash('message','Meno turnaja bolo zmenené!');
         return redirect('/tournaments/'.$tournament->id);
     }
 
@@ -125,7 +125,13 @@ class TournamentController extends Controller
         $tournament = Tournament::create( [
             'tournament_name' => request('tournament_name')
         ]);
-        session()->flash('message','Your TOURNAMENT was created!');
+        session()->flash('message','Turnaj bol vytvorený!');
         return redirect('/');
+    }
+    public function close(Tournament $tournament){
+        $tournament->phase = 'closed';
+        $tournament->save();
+        session()->flash('message','Turnaj bol ukončený!');
+        return redirect('/tournaments/'.$tournament->id);
     }
 }

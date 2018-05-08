@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <h1>Teams:</h1>
+        <h1>Tímy:</h1>
         <ul>
             @foreach($teams as $team)
                 @if($team->active)
