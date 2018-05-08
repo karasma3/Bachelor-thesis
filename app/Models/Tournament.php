@@ -14,9 +14,11 @@ class Tournament extends Model
     const GROUP_NAME = 'A';
     const GROUP_STAGE = 'group_stage';
     public function groups(){
-        return $this->hasMany(Group::class);
+        return $this->hasMany(Group::class)->where('round','=',0);
     }
-
+    public function brackets(){
+        return $this->hasMany(Group::class)->where('round','>',0);
+    }
     public function teams(){
         return $this->belongsToMany( Team::class);
     }
@@ -28,7 +30,10 @@ class Tournament extends Model
         if("group_stage" == $this->phase) return true;
         return false;
     }
-
+    public function isEliminationStage(){
+        if("elimination_stage" == $this->phase) return true;
+        return false;
+    }
     public function getState()
     {
         switch ($this->phase) {
@@ -80,7 +85,8 @@ class Tournament extends Model
         foreach ($groups as $group){
             $new_group = Group::create([
                 'tournament_id' => $this->id,
-                'group_name' => $group_name
+                'group_name' => $group_name,
+                'round' => 0
             ]);
             $group_name++;
             foreach ($group as $team){
@@ -91,6 +97,116 @@ class Tournament extends Model
         }
         $this->phase = self::GROUP_STAGE;
         $this->save();
+    }
+    public function createBracket(){
+        $bracket = Group::create([
+            'tournament_id' => $this->id,
+            'group_name' => "Round: 1",
+            'round' => 1
+        ]);
+        $i=0;
+        $match_number=1;
+        foreach ($this->groups as $group1){
+            $winners1 = $group1->getWinners();
+            $j=0;
+            foreach ($winners1 as $team1){
+                if($team1->matched){
+                    $j++;
+                    continue;
+                }
+                $k=0;
+                foreach ($this->groups as $group2){
+                    if($i==$k){
+                        $k++;
+                        continue;
+                    }
+                    $winners2 = $group2->getWinners();
+                    $l=0;
+                    foreach ($winners2 as $team2){
+                        if($j+$l==3 and $team1->matched==false and $team2->matched==false){
+                            $score = Score::create([
+                            ]);
+                            Match::create([
+                                'score_id' => $score->id,
+                                'group_id' => $bracket->id,
+                                'team_id_first' => $team1->id,
+                                'team_id_second' => $team2->id,
+                                'match_number' => $match_number
+                            ]);
+                            $match_number++;
+                            $team1->matched = true;
+                            $team1->save();
+                            $team2->matched = true;
+                            $team2->save();
+                            if(!$bracket->findTeam($team1->id)) {
+                                $bracket->teams()->save($team1);
+                            }
+                            if(!$bracket->findTeam($team2->id)) {
+                                $bracket->teams()->save($team2);
+                            }
+                        }
+                        $l++;
+                    }
+                    $k++;
+                }
+                $j++;
+            }
+            $i++;
+        }
+        $this->phase='elimination_stage';
+        $this->save();
+    }
+    public function nextRound(){
+        $last_round = Group::find(Group::select('id')->where('tournament_id',$this->id)->orderBy('round','desc')->first())->first();
+        foreach ($last_round->matches as $match){
+            if(!$match->played){
+                session()->flash('fail','All matches have to be played!');
+                return;
+            }
+        }
+        $next_round = Group::create([
+            'tournament_id' => $this->id,
+            'round' => $last_round->round + 1,
+            'group_name' => "Round: ".($last_round->round+1)
+        ]);
+        $match_number = $last_round->matches->max('match_number')+1;
+        $tmp_match = null;
+        $i=0;
+        $flag = false;
+        if($last_round->matches->count()==2){
+            $flag = true;
+        }
+        foreach($last_round->matches as $match){
+            if($tmp_match){
+                if($i % 2 != 0){
+                    $score = Score::create([
+                    ]);
+                    Match::create([
+                        'score_id' => $score->id,
+                        'group_id' => $next_round->id,
+                        'team_id_first' => $tmp_match->getWinnerId(),
+                        'team_id_second' => $match->getWinnerId(),
+                        'match_number' => $match_number
+                    ]);
+                    $match_number++;
+                    if($flag){
+                        $score = Score::create([
+                        ]);
+                        Match::create([
+                            'score_id' => $score->id,
+                            'group_id' => $next_round->id,
+                            'team_id_first' => $tmp_match->getLoserId(),
+                            'team_id_second' => $match->getLoserId(),
+                            'match_number' => $match_number
+                        ]);
+                        $match_number++;
+                    }
+                }
+            }
+
+            $tmp_match = $match;
+            $i++;
+        }
     }
     /**
      * Method for getting Tournaments from the Database

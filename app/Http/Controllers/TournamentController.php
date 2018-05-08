@@ -81,7 +81,15 @@ class TournamentController extends Controller
         $tournament->generateGroups();
         return redirect('/tournaments/'.$tournament->id);
     }
-
+    public function createBracket(Tournament $tournament){
+        $this->calculateScore($tournament);
+        $tournament->createBracket();
+        return redirect('/tournaments/'.$tournament->id);
+    }
+    public function nextRound(Tournament $tournament){
+        $tournament->nextRound();
+        return redirect('/tournaments/'.$tournament->id);
+    }
     public function calculateScore(Tournament $tournament){
         foreach ($tournament->groups as $group){
             $group->calculateScore();

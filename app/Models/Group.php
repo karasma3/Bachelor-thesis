@@ -98,7 +98,26 @@ class Group extends Model
         }
         //return $groupController->generateMatches($this);
     }
+    public function findTeam($team_id){
+        return DB::table('group_team')->select('team_id')->where([['group_id',$this->id],['team_id',$team_id]])->first();
+    }
     public function findMatch($team1, $team2){
         return Match::where([['team_id_first','=',$team1],['team_id_second','=',$team2]])->orWhere([['team_id_first','=',$team2],['team_id_second','=',$team1]])->get();
+    }
+    public function isGroup(){
+        if($this->round==0){
+            return true;
+        }
+        return false;
+    }
+    public function getWinners(){
+        $winners = [];
+        $teams = DB::table('group_team')->select('team_id', 'ordering')->where('group_id', $this->id)->orderBy('ordering')->get();
+        foreach ($teams as $team){
+            if($team->ordering>0 and $team->ordering<=4){
+                array_push($winners,Team::find($team->team_id));
+            }
+        }
+        return $winners;
     }
 }

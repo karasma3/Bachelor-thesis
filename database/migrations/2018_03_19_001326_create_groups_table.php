@@ -17,6 +17,7 @@ class CreateGroupsTable extends Migration
             $table->increments('id');
             $table->integer('tournament_id');
             $table->string('group_name');
+            $table->integer('round');
             $table->timestamps();
         });
     }

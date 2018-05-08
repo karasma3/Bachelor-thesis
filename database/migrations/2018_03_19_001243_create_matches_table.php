@@ -20,6 +20,7 @@ class CreateMatchesTable extends Migration
             $table->unique(['team_id_first', 'team_id_second']);
             $table->integer('group_id');
             $table->integer('score_id');
+            $table->integer('match_number')->nullable();
             $table->boolean('played')->default(false);
             $table->foreign('team_id_first')->references('id')->on('teams')->onDelete('cascade');
             $table->foreign('team_id_second')->references('id')->on('teams')->onDelete('cascade');

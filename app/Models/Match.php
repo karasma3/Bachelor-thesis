@@ -49,6 +49,22 @@ class Match extends Model
         }
         return false;
     }
+    public function getWinnerId(){
+        if($this->wonFirst()){
+            return $this->team_id_first;
+        }
+        if($this->wonSecond()){
+            return $this->team_id_second;
+        }
+    }
+    public function getLoserId(){
+        if($this->wonFirst()){
+            return $this->team_id_second;
+        }
+        if($this->wonSecond()){
+            return $this->team_id_first;
+        }
+    }
     public function scoreFirst(){
         return $this->score->score_first;
     }

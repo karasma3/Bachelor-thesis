@@ -57,6 +57,24 @@
                 </table>
             @endforeach
         @endif
+        @if($tournament->isEliminationStage())
+            <h2>Pavúk:</h2>
+            @foreach($tournament->brackets as $bracket)
+                <h2>{{$bracket->group_name}}</h2>
+                <h3>Tímy:</h3>
+                <ul>
+                @foreach($bracket->teams as $team)
+                    <li><a href="/teams/{{ $team->id }}">{{ $team->team_name }}</a></li>
+                @endforeach
+                </ul>
+                <h3>Zápasy:</h3>
+                <ul>
+                @foreach($bracket->matches as $match)
+                    <li><a href="/matches/{{ $match->id }}">{{ $match->buildName() }}</a> <p style="display: inline">{{$match->played}}</p></li>
+                @endforeach
+                </ul>
+            @endforeach
+        @endif
         @if($tournament->isCreated() and Auth::check())
             <a href="/tournaments/{{ $tournament->id }}/join"><button type="button" class="btn btn-info">Registrovať</button></a>
         @endif
