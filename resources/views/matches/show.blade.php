@@ -7,7 +7,9 @@
         <div class="form-group">
             Final score: {{ $match->buildResult() }}
         </div>
-        <h1>Edit:</h1>
-        <a href="/matches/{{ $match->id }}/edit">Edit match</a>
+        @if(Auth::check() and (Auth::user()->participant($match->team_id_first, $match->team_id_second) or Auth::user()->isAdmin()))
+            <h1>Edit:</h1>
+            <a href="/matches/{{ $match->id }}/edit">Edit match</a>
+        @endif
     </div>
 @endsection

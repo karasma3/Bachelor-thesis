@@ -30,10 +30,16 @@ class Player extends Authenticatable
     public function teams(){
         return $this->hasMany(Team::class, 'player_id_first')->orWhere('player_id_second', $this->id);
     }
-
-    // User::isAdmin()->get();
-    public function scopeIsAdmin($query)
+    public function isAdmin()
     {
-        return $query->where('is_admin', true);
+        return $this->is_admin;
+    }
+    public function participant($team1, $team2){
+        foreach ($this->teams as $team){
+            if($team->id == $team1 or $team->id == $team2){
+               return true;
+            }
+        }
+        return false;
     }
 }
