@@ -37,15 +37,15 @@ class PlayerController extends Controller
      */
     public function editPlayer(Player $player){
         $this->validate(request(),[
-            'name' => 'required|string|min:0|max:20',
-            'surname' => 'required|string|min:0|max:20',
-            'email' => 'required|email|unique:players'
+            'name' => 'required|string|max:255',
+            'surname' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:players'
         ]);
         $player->name = request('name');
         $player->surname = request('surname');
         $player->email = request('email');
         $player->save();
-        session()->flash('message','Your profile was updated!');
+        session()->flash('message','Tvoje informácie boli úspešne zmenené!');
         return redirect('/players/'.$player->id);
     }
 
@@ -59,16 +59,16 @@ class PlayerController extends Controller
 
         $this->validate(request(),[
             'current-password' => 'required',
-            'password' => 'required|confirmed'
+            'password' =>  'required|string|min:5|confirmed'
         ]);
 
         if(!Hash::check(request('current-password'),Auth::user()->password)){
-            session()->flash('fail','You typed your current password invalid!');
+            session()->flash('fail','Nesprávne heslo!');
         }
         else {
             $player->password = Hash::make(request('password'));
             $player->save();
-            session()->flash('message', 'Your password was successfully changed!');
+            session()->flash('message', 'Tvoje heslo bolo úspešne zmenené!');
         }
         return redirect('/players/'.$player->id);
     }

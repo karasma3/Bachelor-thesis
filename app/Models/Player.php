@@ -34,9 +34,9 @@ class Player extends Authenticatable
     {
         return $this->is_admin;
     }
-    public function participant($team1, $team2){
+    public function participant($match){
         foreach ($this->teams as $team){
-            if($team->id == $team1 or $team->id == $team2){
+            if($team->id == $match->team_id_first or $team->id == $match->team_id_second){
                return true;
             }
         }

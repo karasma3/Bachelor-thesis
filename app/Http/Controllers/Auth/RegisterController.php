@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\Player;
+use App\Models\Team;
 use App\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -29,7 +31,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -51,8 +53,9 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
+            'surname' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:players',
+            'password' => 'required|string|min:5|confirmed',
         ]);
     }
 
@@ -60,14 +63,30 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \App\User
+     * @return \App\Models\Player
      */
     protected function create(array $data)
     {
         return Player::create([
             'name' => $data['name'],
+            'surname' => $data['surname'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    protected function registered(Request $request, $player)
+    {
+        Team::create([
+            'team_name' => $player->name.' '.$player->surname,
+            'player_id_first' => $player->id
+        ]);
+
+        session()->flash('message','Bol si úspešne registrovaný!');
+    }
+
+    public function showRegistrationForm()
+    {
+        return view('auth.create');
     }
 }
