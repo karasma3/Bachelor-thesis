@@ -2,12 +2,14 @@
 
 @section('content')
     <div class="container">
-        <h1>Match:</h1>
-        <h2>{{ $match->buildName() }}</h2>
+        <h1>Zápas:</h1>
+        <h2><a href="/teams/{{$match->team_id_first}}">{{$match->teamFirst->team_name}}</a> vs <a href="/teams/{{$match->team_id_second}}">{{$match->teamSecond->team_name}}</a></h2>
         <div class="form-group">
-            Final score: {{ $match->buildResult() }}
+            Výsledné skóre: {{ $match->buildResult() }}
         </div>
-        <h1>Edit:</h1>
-        <a href="/matches/{{ $match->id }}/edit">Edit match</a>
+        @if(Auth::check() and (Auth::user()->participant($match) or Auth::user()->isAdmin()))
+            <h1>Zapíš výsledok:</h1>
+            <a href="/matches/{{ $match->id }}/edit">Zapíš výsledok</a>
+        @endif
     </div>
 @endsection

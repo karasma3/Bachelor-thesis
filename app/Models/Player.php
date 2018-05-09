@@ -13,16 +13,33 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class Player extends Authenticatable
 {
     use Notifiable;
-    protected $guarded = [];
+    protected $fillable = [
+        'name',
+        'surname',
+        'email',
+        'password',
+        'is_admin'
+    ];
     protected $table = 'players';
 
-    public function teams(){
-        return $this->belongsToMany(Team::class);
+    public function getFullNameAttribute()
+    {
+        return $this->name . ' ' . $this->surname;
     }
 
-    // User::isAdmin()->get();
-    public function scopeIsAdmin($query)
+    public function teams(){
+        return $this->hasMany(Team::class, 'player_id_first')->orWhere('player_id_second', $this->id);
+    }
+    public function isAdmin()
     {
-        return $query->where('is_admin', true);
+        return $this->is_admin;
+    }
+    public function participant($match){
+        foreach ($this->teams as $team){
+            if($team->id == $match->team_id_first or $team->id == $match->team_id_second){
+               return true;
+            }
+        }
+        return false;
     }
 }

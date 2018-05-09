@@ -11,5 +11,16 @@ let mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/assets/js/app.js', 'public/js')
-   .sass('resources/assets/sass/app.scss', 'public/css');
+// mix.js('resources/assets/js/app.js', 'public/js')
+//    .sass('resources/assets/sass/app.scss', 'public/css');
+
+mix.js([
+    'node_modules/jquery/dist/jquery.min.js',
+    'node_modules/jquery-bracket/dist/jquery.bracket.min.js'
+], 'public/js/app.js');
+
+mix.styles([
+    'node_modules/jquery-bracket/dist/jquery.bracket.min.css',
+    'public/css/blog.css',
+    'public/css/sticky-footer-navbar.css'
+], 'public/css/app.css');

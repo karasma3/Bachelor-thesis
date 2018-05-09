@@ -17,6 +17,7 @@ class CreateTeamTournamentTable extends Migration
             $table->integer('team_id');
             $table->integer('tournament_id');
             $table->boolean('elimination_stage')->default(false);
+            $table->integer('last_placement')->default(65);
             $table->primary(['team_id', 'tournament_id']);
 
             $table->foreign('team_id')->references('id')->on('teams')->onDelete('cascade');

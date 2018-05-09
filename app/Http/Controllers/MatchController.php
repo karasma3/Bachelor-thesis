@@ -47,10 +47,13 @@ class MatchController extends Controller
             'score_first' => 'required|integer|min:0|max:4',
             'score_second' => 'required|integer|min:0|max:4'
         ]);
-        $match->score_first = request('score_first');
-        $match->score_second = request('score_second');
+        $match->score->score_first = request('score_first');
+        $match->score->score_second = request('score_second');
+        $match->score->save();
         $match->played = true;
         $match->save();
+        $match->group->calculateScore();
+        $match->group->calculateOrder();
         session()->flash('message','Your result was given!');
         return redirect('/matches/'.$match->id);
     }

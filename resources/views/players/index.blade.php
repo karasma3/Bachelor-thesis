@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <h1>Players:</h1>
+        <h1>Hráči:</h1>
         <ul>
             @foreach($players as $player)
                 <li><a href="/players/{{ $player->id }}">{{ $player->name }} {{ $player->surname }}</a></li>

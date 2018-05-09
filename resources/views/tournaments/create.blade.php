@@ -2,15 +2,15 @@
 
 @section('content')
 
-    <h1>Create a TOURNAMENT</h1>
+    <h1>Vytvor turnaj</h1>
     <form method="POST" action="/tournaments">
         @csrf
         <div class="form-group">
-            <label for="tournament_name">Tournament Name</label>
+            <label for="tournament_name">Meno turnaja</label>
             <input type="text" class="form-control" id="tournament_name" name="tournament_name">
         </div>
         <div class="form-group">
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Vytvor</button>
         </div>
     </form>
 

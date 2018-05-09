@@ -17,9 +17,14 @@ class CreateGroupTeamTable extends Migration
             $table->integer('group_id');
             $table->integer('team_id');
             $table->primary(['group_id', 'team_id']);
+            $table->integer('score_won')->default(0);
+            $table->integer('score_lost')->default(0);
+            $table->integer('points')->default(0);
+            $table->integer('ordering')->nullable();
 
             $table->foreign('group_id')->references('id')->on('groups')->onDelete('cascade');
             $table->foreign('team_id')->references('id')->on('teams')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 

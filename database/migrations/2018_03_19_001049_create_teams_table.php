@@ -15,8 +15,13 @@ class CreateTeamsTable extends Migration
     {
         Schema::create('teams', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('group_id')->nullable();
             $table->string('team_name')->unique();
+            $table->boolean('active')->default(true);
+            $table->integer('last_placement')->default(65);
+            $table->boolean('singles')->default(true);
+            $table->boolean('matched')->default(false);
+            $table->integer('player_id_first');
+            $table->integer('player_id_second')->nullable();
             $table->timestamps();
         });
     }

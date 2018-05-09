@@ -2,13 +2,14 @@
 
 @section('content')
     <div class="container">
-        <h1>Tournaments:</h1>
+        <h1>Turnaje:</h1>
         <ul>
-            @foreach($tournaments as $tournament)
+            @foreach($tournaments->sortBy(function($tournament){return $tournament->tournament_name;}) as $tournament)
                 <li><a href="/tournaments/{{ $tournament->id }}">{{ $tournament->tournament_name }}</a></li>
             @endforeach
         </ul>
-
-        <a href="/tournaments/create">Create a tournament</a>
+        @if(Auth::check() and Auth::user()->isAdmin())
+            <a href="/tournaments/create">Vytvor turnaj</a>
+        @endif
     </div>
 @endsection

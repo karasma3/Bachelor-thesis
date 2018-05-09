@@ -17,16 +17,23 @@
         <h1>Hráč</h1>
         <ul>
             <li>Meno: {{ $player -> name }}</li>
-            <li>Prijmeni: {{ $player -> surname }}</li>
-            <li>e-mail: {{ $player -> email }}</li>
+            <li>Priezvisko: {{ $player -> surname }}</li>
+            <li>E-mail: {{ $player -> email }}</li>
         </ul>
-        <h1>Tímy</h1>
+        <h2>Tímy</h2>
         <ul>
             @foreach( $player -> teams as $team )
-                <li> <a href="/teams/{{ $team->id }}">{{ $team -> team_name }}</a></li>
+                <li>
+                    @if(!$team->active)
+                        <a href="/teams/{{ $team->id }}" class="text-info">{{ $team -> team_name }}</a>
+                        <p style="display: inline" class="text-danger text-uppercase">Neaktivní</p>
+                    @else
+                        <a href="/teams/{{ $team->id }}" class="text-justify">{{ $team -> team_name }}</a>
+                    @endif
+                </li>
             @endforeach
         </ul>
-        <h1>Uprav:</h1>
-        <a href="/players/{{ $player->id }}/edit">Uprav hráča</a>
+        <h2>Správa:</h2>
+        <a href="/players/{{ $player->id }}/edit">Správa hráča</a>
     </div>
 @endsection

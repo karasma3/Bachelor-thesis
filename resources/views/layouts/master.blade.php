@@ -14,10 +14,12 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <!-- Custom styles for this template -->
-    <link href="/css/blog.css" rel="stylesheet">
+    {{--<link href="/css/blog.css" rel="stylesheet">--}}
+
+    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="/css/sticky-footer-navbar.css" rel="stylesheet">
+    {{--<link href="/css/sticky-footer-navbar.css" rel="stylesheet">--}}
 </head>
 
 <body>
@@ -54,6 +56,12 @@
 </div><!-- /.container -->
 
 @include('layouts.footer')
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+<script src="{{ mix('js/app.js') }}"></script>
+
+@yield('scripts')
 
 </body>
 </html>

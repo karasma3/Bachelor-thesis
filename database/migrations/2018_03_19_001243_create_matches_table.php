@@ -17,10 +17,10 @@ class CreateMatchesTable extends Migration
             $table->increments('id');
             $table->integer('team_id_first');
             $table->integer('team_id_second');
-            $table->unique(['team_id_first', 'team_id_second']);
-            $table->integer('group_id')->nullable();
-            $table->integer('score_first')->nullable();
-            $table->integer('score_second')->nullable();
+            $table->integer('group_id');
+            $table->unique(['team_id_first', 'team_id_second', 'group_id']);
+            $table->integer('score_id');
+            $table->integer('match_number')->nullable();
             $table->boolean('played')->default(false);
             $table->foreign('team_id_first')->references('id')->on('teams')->onDelete('cascade');
             $table->foreign('team_id_second')->references('id')->on('teams')->onDelete('cascade');

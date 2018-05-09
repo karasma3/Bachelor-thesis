@@ -13,12 +13,22 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        Player::create([
-            'name'     => 'Maroš',
-            'surname'  => 'Karas',
-            'email'    => 'admin@shpinec.cz',
-            'password' => Hash::make('qwerty'),
-            'is_admin' => true
-        ]);
+        factory(Player::class,8)->create()->each(function ($p) {
+            $p->teams()->save(factory(App\Models\Team::class)->make(['team_name' => $p->fullName]));
+        });
+//        Player::create([
+//            'name'     => 'Maroš',
+//            'surname'  => 'Karas',
+//            'email'    => 'admin@shpinec.cz',
+//            'password' => Hash::make('qwerty'),
+//            'is_admin' => true
+//        ]);
+//        Player::create([
+//            'name'     => 'Maroš',
+//            'surname'  => 'Karas',
+//            'email'    => 'admin@shpinec.cz',
+//            'password' => Hash::make('qwerty'),
+//            'is_admin' => true
+//        ]);
     }
 }
