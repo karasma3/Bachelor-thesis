@@ -17,8 +17,8 @@ class CreateMatchesTable extends Migration
             $table->increments('id');
             $table->integer('team_id_first');
             $table->integer('team_id_second');
-            $table->unique(['team_id_first', 'team_id_second']);
             $table->integer('group_id');
+            $table->unique(['team_id_first', 'team_id_second', 'group_id']);
             $table->integer('score_id');
             $table->integer('match_number')->nullable();
             $table->boolean('played')->default(false);

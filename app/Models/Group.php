@@ -20,7 +20,9 @@ class Group extends Model
     public function matches(){
         return $this->hasMany(Match::class);
     }
-
+    public function matchesInOrder(){
+        return $this->hasMany(Match::class)->orderBy('match_number');
+    }
     public function calculateScore()
     {
         foreach ($this->teams as $team){

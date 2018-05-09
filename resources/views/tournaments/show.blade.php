@@ -20,34 +20,40 @@
             @endforeach
         @endif
         @if($tournament->isEliminationStage())
+            <div class="m-md-5">
             <h2>Pavúk:</h2>
+            @include('layouts.bracket')
+            <h2>Timy:</h2>
+            <ul>
+            @foreach($tournament->teamsInEliminationStage as $team)
+                    <li><a href="/teams/{{$team->id}}">{{$team->team_name}}</a></li>
+            @endforeach
+            </ul>
             @foreach($tournament->brackets as $bracket)
                 <h2>{{$bracket->group_name}}</h2>
-                <h3>Tímy:</h3>
-                <ul>
-                @foreach($bracket->teams as $team)
-                    <li><a href="/teams/{{ $team->id }}">{{ $team->team_name }}</a></li>
-                @endforeach
-                </ul>
                 <h3>Zápasy:</h3>
                 <ul>
-                @foreach($bracket->matches as $match)
-                    <li><a href="/matches/{{ $match->id }}">{{ $match->buildName() }}</a> <p style="display: inline">{{$match->played}}</p></li>
+                @foreach($bracket->matchesInOrder as $match)
+                    <li><a href="/matches/{{ $match->id }}">{{ $match->buildName() }}</a> <p style="display: inline">{{$match->buildResult()}}</p></li>
                 @endforeach
                 </ul>
             @endforeach
+            </div>
         @endif
         @if($tournament->isClosed())
 
         @endif
-        @if($tournament->isCreated() and Auth::check())
-            <a href="/tournaments/{{ $tournament->id }}/join"><button type="button" class="btn btn-info">Registrovať</button></a>
-        @endif
-        <a href="/tournaments"><button type="button" class="btn btn-dark">Späť</button></a>
-        </br>
-        @if(Auth::check() and Auth::user()->isAdmin())
-            <a href="/tournaments/{{ $tournament->id }}/edit">Správa turnaja</a>
-        @endif
+        <div class="buttons">
+            @if($tournament->isCreated() and Auth::check())
+                <a href="/tournaments/{{ $tournament->id }}/join"><button type="button" class="btn btn-info">Registrovať</button></a>
+            @endif
+            <a href="/tournaments"><button type="button" class="btn btn-dark">Späť</button></a>
+            </br>
+            @if(Auth::check() and Auth::user()->isAdmin())
+                <a href="/tournaments/{{ $tournament->id }}/edit">Správa turnaja</a>
+            @endif
         </div>
+        </div>
+
     </div>
 @endsection

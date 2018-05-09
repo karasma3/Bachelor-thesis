@@ -4,7 +4,7 @@
     <div class="container">
         <h1>Turnaje:</h1>
         <ul>
-            @foreach($tournaments as $tournament)
+            @foreach($tournaments->sortBy(function($tournament){return $tournament->tournament_name;}) as $tournament)
                 <li><a href="/tournaments/{{ $tournament->id }}">{{ $tournament->tournament_name }}</a></li>
             @endforeach
         </ul>

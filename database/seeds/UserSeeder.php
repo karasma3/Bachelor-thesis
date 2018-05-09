@@ -13,7 +13,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        factory(Player::class,32)->create()->each(function ($p) {
+        factory(Player::class,8)->create()->each(function ($p) {
             $p->teams()->save(factory(App\Models\Team::class)->make(['team_name' => $p->fullName]));
         });
 //        Player::create([

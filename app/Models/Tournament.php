@@ -19,6 +19,24 @@ class Tournament extends Model
     public function brackets(){
         return $this->hasMany(Group::class)->where('round','>',0);
     }
+    public function firstRoundBracket(){
+        return $this->hasMany(Group::class)->where('round','=',1);
+    }
+    public function teamsInEliminationStage(){
+        return $this->belongsToMany( Team::class) -> where('elimination_stage', '=', true);
+    }
+    public function matchesInBracket($brackets){
+        $matches = collect();
+        foreach ($brackets as $bracket) {
+            foreach ($bracket->matches as $match) {
+                $matches->push($match);
+            }
+        }
+        $matches = $matches->sortBy(function($match){
+            return $match->match_number;
+        });
+        return $matches;
+    }
     public function teams(){
         return $this->belongsToMany( Team::class);
     }
@@ -140,8 +158,10 @@ class Tournament extends Model
                             ]);
                             $match_number++;
                             $team1->matched = true;
+                            DB::table('team_tournament')->where([['team_id', $team1->id],['tournament_id', $this->id]])->update(['elimination_stage' => true]);
                             $team1->save();
                             $team2->matched = true;
+                            DB::table('team_tournament')->where([['team_id', $team2->id],['tournament_id', $this->id]])->update(['elimination_stage' => true]);
                             $team2->save();
                             if(!$bracket->findTeam($team1->id)) {
                                 $bracket->teams()->save($team1);
