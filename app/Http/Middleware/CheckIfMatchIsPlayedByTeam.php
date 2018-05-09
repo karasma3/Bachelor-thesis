@@ -3,7 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Auth;
 
 class CheckIfMatchIsPlayedByTeam
 {
@@ -16,9 +16,9 @@ class CheckIfMatchIsPlayedByTeam
      */
     public function handle($request, Closure $next){
         $match = $request->route('match');
-        if(Auth::check() and (Auth::user()->participant($match) or Auth::user()->isAdmin())){
-
+        if(Auth::user()->participant($match) or Auth::user()->isAdmin()){
+            return $next($request);
         }
-        return $next($request);
+        return redirect('/');
     }
 }
