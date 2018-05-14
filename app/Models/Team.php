@@ -46,4 +46,11 @@ class Team extends Model
         $this->active = $value;
         $this->save();
     }
+    public function getEmails(){
+        $email = $this->playerFirst->email . ';';
+        if ($this->playerSecond){
+            $email = $email . $this->playerSecond->email . ';';
+        }
+        return $email;
+    }
 }

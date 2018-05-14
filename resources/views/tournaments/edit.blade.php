@@ -45,7 +45,15 @@
             </a>
         </div>
     @endif
-
+    <div class="form-group">
+        <h2>Hromadné e-maily:</h2>
+        <ul>
+            <li><a href="mailto:{{$tournament->getEmails()}}">Pošli hromadný e-mail všetkým hráčom</a></li>
+            @if($tournament->isEliminationStage())
+                <li><a href="mailto:{{$tournament->getEmailsElimination()}}">Pošli hromadný e-mail hráčom v pavúku</a></li>
+            @endif
+        </ul>
+    </div>
     <div class="form-group">
         <a href="/tournaments/{{$tournament->id}}"><button type="submit" class="btn btn-dark">Späť</button></a>
     </div>

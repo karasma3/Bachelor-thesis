@@ -202,6 +202,20 @@ class Tournament extends Model
         $next_round->generateMatchesInBracket($last_round);
         session()->flash('message','Ďalšie kolo bolo vytvorené!');
     }
+    public function getEmails(){
+        $emails = '';
+        foreach ($this->teams as $team){
+            $emails = $emails . $team->getEmails();
+        }
+        return $emails;
+    }
+    public function getEmailsElimination(){
+        $emails = '';
+        foreach ($this->teamsInEliminationStage as $team){
+            $emails = $emails . $team->getEmails();
+        }
+        return $emails;
+    }
     /**
      * Method for getting Tournaments from the Database
      *
