@@ -18,6 +18,7 @@ class CreateGroupsTable extends Migration
             $table->integer('tournament_id');
             $table->string('group_name');
             $table->integer('round');
+            $table->boolean('is_finale')->default(false);
             $table->timestamps();
         });
     }

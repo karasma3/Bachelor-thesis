@@ -188,6 +188,10 @@ class Tournament extends Model
     }
     public function nextRound(){
         $last_round = Group::find(Group::select('id')->where('tournament_id',$this->id)->orderBy('round','desc')->first())->first();
+        if($last_round->is_finale){
+            session()->flash('fail','Turnaj už je vo finálovom kole!');
+            return;
+        }
         foreach ($last_round->matches as $match){
             if(!$match->played){
                 session()->flash('fail','Všetky zápasy musia byť odohrané!');

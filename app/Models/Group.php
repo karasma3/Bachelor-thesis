@@ -104,9 +104,9 @@ class Group extends Model
         $match_number = $last_round->matches->max('match_number')+1;
         $tmp_match = null;
         $i=0;
-        $flag = false;
         if($last_round->matches->count()==2){
-            $flag = true;
+            $this->is_finale = true;
+            $this->save();
         }
         foreach($last_round->matches as $match){
             if($tmp_match){
@@ -121,7 +121,7 @@ class Group extends Model
                         'match_number' => $match_number
                     ]);
                     $match_number++;
-                    if($flag){
+                    if($this->is_finale){
                         $score = Score::create([
                         ]);
                         Match::create([
