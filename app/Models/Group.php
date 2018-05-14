@@ -100,6 +100,46 @@ class Group extends Model
         }
         //return $groupController->generateMatches($this);
     }
+    public function generateMatchesInBracket($last_round){
+        $match_number = $last_round->matches->max('match_number')+1;
+        $tmp_match = null;
+        $i=0;
+        $flag = false;
+        if($last_round->matches->count()==2){
+            $flag = true;
+        }
+        foreach($last_round->matches as $match){
+            if($tmp_match){
+                if($i % 2 != 0){
+                    $score = Score::create([
+                    ]);
+                    Match::create([
+                        'score_id' => $score->id,
+                        'group_id' => $this->id,
+                        'team_id_first' => $tmp_match->getWinnerId(),
+                        'team_id_second' => $match->getWinnerId(),
+                        'match_number' => $match_number
+                    ]);
+                    $match_number++;
+                    if($flag){
+                        $score = Score::create([
+                        ]);
+                        Match::create([
+                            'score_id' => $score->id,
+                            'group_id' => $this->id,
+                            'team_id_first' => $tmp_match->getLoserId(),
+                            'team_id_second' => $match->getLoserId(),
+                            'match_number' => $match_number
+                        ]);
+                        $match_number++;
+                    }
+                }
+            }
+
+            $tmp_match = $match;
+            $i++;
+        }
+    }
     public function findTeam($team_id){
         return DB::table('group_team')->select('team_id')->where([['group_id',$this->id],['team_id',$team_id]])->first();
     }

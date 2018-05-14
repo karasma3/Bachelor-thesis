@@ -16,6 +16,9 @@ class Tournament extends Model
     public function groups(){
         return $this->hasMany(Group::class)->where('round','=',0);
     }
+    public function groupsInRandomOrder(){
+        return $this->hasMany(Group::class)->where('round','=',0)->inRandomOrder();
+    }
     public function brackets(){
         return $this->hasMany(Group::class)->where('round','>',0);
     }
@@ -129,7 +132,8 @@ class Tournament extends Model
         ]);
         $i=0;
         $match_number=1;
-        foreach ($this->groups as $group1){
+        $groups = $this->groupsInRandomOrder;
+        foreach ($groups as $group1){
             $winners1 = $group1->getWinners();
             $j=0;
             foreach ($winners1 as $team1){
@@ -138,7 +142,7 @@ class Tournament extends Model
                     continue;
                 }
                 $k=0;
-                foreach ($this->groups as $group2){
+                foreach ($groups as $group2){
                     if($i==$k){
                         $k++;
                         continue;
@@ -195,44 +199,7 @@ class Tournament extends Model
             'round' => $last_round->round + 1,
             'group_name' => 'Kolo: '.($last_round->round+1)
         ]);
-        $match_number = $last_round->matches->max('match_number')+1;
-        $tmp_match = null;
-        $i=0;
-        $flag = false;
-        if($last_round->matches->count()==2){
-            $flag = true;
-        }
-        foreach($last_round->matches as $match){
-            if($tmp_match){
-                if($i % 2 != 0){
-                    $score = Score::create([
-                    ]);
-                    Match::create([
-                        'score_id' => $score->id,
-                        'group_id' => $next_round->id,
-                        'team_id_first' => $tmp_match->getWinnerId(),
-                        'team_id_second' => $match->getWinnerId(),
-                        'match_number' => $match_number
-                    ]);
-                    $match_number++;
-                    if($flag){
-                        $score = Score::create([
-                        ]);
-                        Match::create([
-                            'score_id' => $score->id,
-                            'group_id' => $next_round->id,
-                            'team_id_first' => $tmp_match->getLoserId(),
-                            'team_id_second' => $match->getLoserId(),
-                            'match_number' => $match_number
-                        ]);
-                        $match_number++;
-                    }
-                }
-            }
-
-            $tmp_match = $match;
-            $i++;
-        }
+        $next_round->generateMatchesInBracket($last_round);
         session()->flash('message','Ďalšie kolo bolo vytvorené!');
     }
     /**
