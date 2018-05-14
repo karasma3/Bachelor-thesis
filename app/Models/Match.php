@@ -80,4 +80,10 @@ class Match extends Model
         if($this->played)
             return $this->scoreSecond().':'.$this->scoreFirst();
     }
+    public function oddMatch(){
+        if($this->match_number % 2 != 0){
+            return true;
+        }
+        return false;
+    }
 }
